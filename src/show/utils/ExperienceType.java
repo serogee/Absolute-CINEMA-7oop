@@ -1,6 +1,6 @@
-package movie;
+package show.utils;
 
-public enum MovieType {
+public enum ExperienceType {
     STANDARD_2D("Standard 2D", 0),
     STANDARD_3D("Standard 3D", 80),
     IMAX("IMAX", 150);
@@ -8,7 +8,7 @@ public enum MovieType {
     private final String displayName;
     private final double priceOffset;
 
-    private MovieType(String displayName, double priceOffset) {
+    private ExperienceType(String displayName, double priceOffset) {
         this.displayName = displayName;
         this.priceOffset = priceOffset;
     }
