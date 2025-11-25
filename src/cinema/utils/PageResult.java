@@ -1,0 +1,101 @@
+package cinema.utils;
+
+public class PageResult {
+    public static enum Navigation {
+        BACK_TO_START,
+        BACK_TO_MAIN,
+        BACK_TO_PREVIOUS,
+        BACK_TO_EXIT,
+        NEXT
+    }
+
+    private static abstract class DataType {
+        private final PageResult pageResult;
+
+        DataType(PageResult pageResult) {
+            this.pageResult = pageResult;
+        }
+
+        public PageResult getPageResult() { return pageResult; }
+    }
+
+    public static class Char extends DataType {
+        private final char value;
+
+        Char(char value) {
+            super(null);
+            this.value = value;
+        }
+
+        Char(PageResult pageResult) {
+            super(pageResult);
+            this.value = 0;
+        }
+
+        public char getValue() { return value; }
+    }
+
+    public static class Int extends DataType {
+        private final int value;
+
+        Int(int value) {
+            super(null);
+            this.value = value;
+        }
+
+        Int(PageResult pageResult) {
+            super(pageResult);
+            this.value = 0;
+        }
+
+        public int getValue() { return value; }
+    }
+
+    public static class Str extends DataType {
+        private final String value;
+
+        Str(String value) {
+            super(null);
+            this.value = value;
+        }
+
+        Str(PageResult pageResult) {
+            super(pageResult);
+            this.value = "";
+        }
+
+        public String getValue() { return value; }
+    }
+
+
+
+    private final Navigation direction;
+    private final PageType nextPage;
+
+    private PageResult(Navigation direction, PageType nextPage) {
+        if (direction != Navigation.NEXT && nextPage != null) {
+            throw new IllegalArgumentException("Only NEXT direction can have a nextPage");
+        }
+
+        if (direction == Navigation.NEXT && nextPage == null) {
+            throw new IllegalArgumentException("NEXT direction must have a target screen");
+        }
+        this.direction = direction;
+        this.nextPage = nextPage;
+    }
+
+    public Navigation getDirection() { return this.direction; }
+
+    public PageType getNextPage() { return this.nextPage; }
+
+    public static PageResult createResultNextPage(PageType nextPage) {
+        return new PageResult(Navigation.NEXT, nextPage);
+    }
+
+    public static PageResult createResultJump(Navigation direction) {
+        if (direction == Navigation.NEXT) {
+            throw new IllegalArgumentException("BACK directions cannot be NEXT");
+        }
+        return new PageResult(direction, null);
+    }
+}
