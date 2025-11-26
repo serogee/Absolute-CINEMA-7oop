@@ -21,8 +21,9 @@ class MainTheaterPages {
         PageBuilder page = new PageBuilder();
         page.setTitle("Theater Management");
 
-        for (Theater theater : this.cinema.getTheathers()) {
-            page.addDisplayOption("Theater: " + theater.getName() + " | Seats: " + (theater.getRowLength() * theater.getColumnLength()));
+        for (int i = 0; i < this.cinema.getTheathers().size(); i++) {
+            Theater theater = this.cinema.getTheathers().get(i);
+            page.addDisplayOption("[" + (i + 1) + "] Theater: " + theater.getName() + " | Seats: " + (theater.getRowLength() * theater.getColumnLength()));
         }
 
         page.addCustomOption(new CustomOption(PageType.ADD_SCREENING, "Add Theater", "A"));
@@ -30,8 +31,8 @@ class MainTheaterPages {
         page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_PREVIOUS, "Return", "R"));
 
         PageResult.Int intInput;
-        PageResult result;
-        while (true) {
+        PageResult result = null;
+        while (result == null) {
             try {
                 page.display();
                 intInput = page.nextInt("Input Option");
@@ -41,7 +42,6 @@ class MainTheaterPages {
                 } else {
                     result = intInput.getPageResult();
                 }
-                break;
             } catch (InputMismatchException e) {
                 page.setErrorMessage("Please enter a valid option!");
             } catch (IndexOutOfBoundsException e) {
@@ -49,5 +49,14 @@ class MainTheaterPages {
             }
         }
         return result;
+    }
+
+    public PageResult addTheaterPage() {
+        PageBuilder page = new PageBuilder();
+        page.setTitle("Add Theater");
+
+        // Implementation for adding a theater would go here
+
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
 }

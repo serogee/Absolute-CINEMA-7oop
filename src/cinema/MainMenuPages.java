@@ -17,8 +17,8 @@ class MainMenuPages {
         page.addOption(new Option(PageType.MAIN_MANAGE_SCREENINGS, "Manage Screenings"));
         page.addOption(new Option(PageType.MAIN_THEATER_EDITOR, "Manage Theaters"));
 
-        PageResult result;
-        while (true) {
+        PageResult result = null;
+        while (result == null) {
             try {
                 page.display();
                 result = page.nextOptionResult("Input Option");

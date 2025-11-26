@@ -6,6 +6,7 @@ import cinema.utils.CustomOption;
 import cinema.utils.PageBuilder;
 import cinema.utils.PageResult;
 import cinema.utils.PageType;
+import show.Movie;
 import show.Show;
 
 class MainShowPages {
@@ -30,22 +31,27 @@ class MainShowPages {
         page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_PREVIOUS, "Return", "R"));
 
         PageResult.Int intInput;
-        PageResult result;
-        while (true) {
+        PageResult result = null;
+        while (result == null) {
             try {
                 page.display();
                 intInput = page.nextInt("Input Option");
                 if (intInput.getPageResult() == null) { 
                     this.workingShow = this.cinema.getShows().get(intInput.getValue());
-                    result = PageResult.createResultNextPage(PageType.MANAGE_SHOW);
+                    if (this.workingShow instanceof Movie) {
+                        result = PageResult.createResultNextPage(PageType.MANAGE_SHOW_MOVIE);
+                    } else {
+                        throw new IllegalStateException("Unsupported show type");
+                    }
                 } else {
                     result = intInput.getPageResult();
                 }
-                break;
             } catch (InputMismatchException e) {
                 page.setErrorMessage("Please enter a valid option!");
             } catch (IndexOutOfBoundsException e) {
                 page.setErrorMessage("Please select a valid show number!");
+            } catch (IllegalStateException e) {
+                page.setErrorMessage("Selected show type is not supported for management!");
             }
         }
         return result;
