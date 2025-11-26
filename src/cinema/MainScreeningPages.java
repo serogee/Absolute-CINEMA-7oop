@@ -26,15 +26,23 @@ class MainScreeningPages {
         for (int i = 0; i < this.cinema.getScreenings().size(); i++) {
             Screening screening = this.cinema.getScreenings().get(i);
             
-            page.addDisplayOption(String.format("[%d] %s: %s (%d)", i + 1, screening.getTheater().getName(), screening.getShow().getTitle(), screening.getShow().getReleaseYear()));
+            page.addDisplayOption(String.format(
+                "[%d] %s {%d/%d seats}: %s (%d)", 
+                i + 1, 
+                screening.getTheater().getName(), 
+                screening.getResearvedSeatIDs().size(), 
+                screening.getTheater().getRowLength() * screening.getTheater().getColumnLength(), 
+                screening.getShow().getTitle(), 
+                screening.getShow().getReleaseYear()
+            ));
         }
         page.addCustomOption(new CustomOption(PageType.ADD_SCREENING, "Add Screening", "A"));
         page.addCustomOption(new CustomOption(PageType.DELETE_SCREENING, "Delete Screening", "D"));
         page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_PREVIOUS, "Return", "R"));
 
         PageResult.Int intInput;
-        PageResult result;
-        while (true) {
+        PageResult result = null;
+        while (result == null) {
             try {
                 page.display();
                 intInput = page.nextInt("Input Option");
@@ -44,7 +52,6 @@ class MainScreeningPages {
                 } else {
                     result = intInput.getPageResult();
                 }
-                break;
             } catch (InputMismatchException e) {
                 page.setErrorMessage("Please enter a valid option!");
             } catch (IndexOutOfBoundsException e) {
