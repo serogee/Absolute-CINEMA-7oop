@@ -19,25 +19,27 @@ class MainScreeningPages {
         this.workingScreening = null;
     }
 
+    // [1] MAIN LIST OF SCREENINGS
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
         page.setTitle("Manage Screenings");
+
+        if (this.cinema.getScreenings().isEmpty()) {
+            page.setBody("No screenings scheduled.");
+        }
 
         for (int i = 0; i < this.cinema.getScreenings().size(); i++) {
             Screening screening = this.cinema.getScreenings().get(i);
             
             page.addDisplayOption(String.format(
-                "[%d] %s {%d/%d seats}: %s (%d)", 
+                "[%d] %s | %s (%d)", 
                 i + 1, 
                 screening.getTheater().getName(), 
-                screening.getResearvedSeatIDs().size(), 
-                screening.getTheater().getRowLength() * screening.getTheater().getColumnLength(), 
-                screening.getShow().getTitle(), 
+                screening.getShow().getTitle(),   
                 screening.getShow().getReleaseYear()
             ));
         }
         page.addCustomOption(new CustomOption(PageType.ADD_SCREENING, "Add Screening", "A"));
-        page.addCustomOption(new CustomOption(PageType.DELETE_SCREENING, "Delete Screening", "D"));
         page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_PREVIOUS, "Return", "R"));
 
         PageResult.Int intInput;
@@ -46,9 +48,8 @@ class MainScreeningPages {
             try {
                 page.display();
                 intInput = page.nextInt("Input Option");
-                if (intInput.getPageResult() == null) { 
-                    this.workingScreening = this.cinema.getScreenings().get(intInput.getValue());
-                    result = PageResult.createResultNextPage(PageType.MANAGE_SCREENING);
+                if (intInput.getPageResult() == null) {
+                     page.setErrorMessage("Viewing details not implemented yet.");
                 } else {
                     result = intInput.getPageResult();
                 }
@@ -61,62 +62,79 @@ class MainScreeningPages {
         return result;
     }
 
+    // [2] ADD SCREENING WIZARD
     public PageResult addScreeningPage() {
         PageBuilder page = new PageBuilder();
-        page.setTitle("Add Screening");
+        page.setTitle("Add Screening - Step 1: Select Theater");
 
-        for (Theater theater : this.cinema.getTheathers()) {
-            page.addDisplayOption("Theater: " + theater.getName() + " | Seats: " + (theater.getRowLength() * theater.getColumnLength()));
+        if (this.cinema.getTheathers().isEmpty()) {
+            System.out.println("Error: No theaters available. Please add a theater first.");
+            try { Thread.sleep(1500); } catch (Exception e) {}
+            return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
         }
 
-        page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_PREVIOUS, "Return", "R"));
-        page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_START, "Return to Main Menu", "M"));
+        for (int i = 0; i < this.cinema.getTheathers().size(); i++) {
+            Theater theater = this.cinema.getTheathers().get(i);
+            page.addDisplayOption(String.format("[%d] %s (Seats: %d)", i + 1, theater.getName(), theater.getRowLength() * theater.getColumnLength()));
+        }
+        page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_PREVIOUS, "Cancel", "C"));
 
-        PageResult.Int intInput;
-        PageResult result = null;
-
+        // Step 1: Pick Theater
         Theater selectedTheater = null;
+        try {
+            page.display();
+            PageResult.Int tInput = page.nextInt("Select Theater");
+            if (tInput.getPageResult() != null) return tInput.getPageResult();
+            
+            int tIndex = tInput.getValue() - 1;
+            if (tIndex >= 0 && tIndex < this.cinema.getTheathers().size()) {
+                selectedTheater = this.cinema.getTheathers().get(tIndex);
+            } else {
+                throw new InputMismatchException("Invalid index");
+            }
+        } catch (Exception e) {
+            return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
+        }
 
-        while (result == null) {
-            try {
-                page.display();
-                intInput = page.nextInt("Select Theater");
-                if (intInput.getPageResult() == null) {
-                    selectedTheater = this.cinema.getTheathers().get(intInput.getValue());
-                    result = PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
-                } else {
-                    result = intInput.getPageResult();
-                }
-            } catch (InputMismatchException e) {
-                page.setErrorMessage("Please enter a valid option!");
-            } catch (IndexOutOfBoundsException e) {
-                page.setErrorMessage("Please select a valid theater number!");
-            };
+        // Step 2: Pick Show
+        // FIX: Create a NEW PageBuilder instead of trying to clear the old one
+        page = new PageBuilder(); 
+        page.setTitle("Add Screening - Step 2: Select Movie");
+
+        if (this.cinema.getShows().isEmpty()) {
+            System.out.println("Error: No movies available. Please add a movie first.");
+            try { Thread.sleep(1500); } catch (Exception e) {}
+            return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
+        }
+
+        for (int i = 0; i < this.cinema.getShows().size(); i++) {
+            Show show = this.cinema.getShows().get(i);
+            page.addDisplayOption(String.format("[%d] %s", i + 1, show.getTitle()));
         }
 
         Show selectedShow = null;
+        try {
+            page.display();
+            PageResult.Int sInput = page.nextInt("Select Movie");
+            if (sInput.getPageResult() != null) return sInput.getPageResult();
 
-        while (result == null) {
-            try {
-                page.display();
-                intInput = page.nextInt("Select Show");
-                if (intInput.getPageResult() == null) {
-                    selectedShow = this.cinema.getShows().get(intInput.getValue());
-                    result = PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
-                } else {
-                    result = intInput.getPageResult();
-                }
-            } catch (InputMismatchException e) {
-                page.setErrorMessage("Please enter a valid option!");
-            }catch (IndexOutOfBoundsException e) {
-                page.setErrorMessage("Please select a valid show number!");
-            };
+            int sIndex = sInput.getValue() - 1;
+            if (sIndex >= 0 && sIndex < this.cinema.getShows().size()) {
+                selectedShow = this.cinema.getShows().get(sIndex);
+            } else {
+                throw new InputMismatchException("Invalid index");
+            }
+        } catch (Exception e) {
+             return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
         }
 
+        // Create Screening
         if (selectedTheater != null && selectedShow != null) {
             this.cinema.getScreenings().add(new Screening(selectedTheater, selectedShow));
+            System.out.println("Screening Added Successfully!");
+            try { Thread.sleep(1000); } catch (Exception e) {}
         }
         
-        return result;
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
 }

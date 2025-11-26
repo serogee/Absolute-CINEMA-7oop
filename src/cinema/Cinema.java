@@ -33,17 +33,9 @@ public class Cinema {
         this.mainTheaterPages = new MainTheaterPages(this);
     }
 
-    public List<Show> getShows() {
-        return shows;
-    }
-
-    public List<Screening> getScreenings() {
-        return screenings;
-    }
-
-    public List<Theater> getTheathers() {
-        return theathers;
-    }
+    public List<Show> getShows() { return shows; }
+    public List<Screening> getScreenings() { return screenings; }
+    public List<Theater> getTheathers() { return theathers; }
 
     public void start() {
         PageResult result;
@@ -53,17 +45,40 @@ public class Cinema {
                 result = this.mainMenuPages.mainPage();
             } else {
                 switch (this.history.peek()) {
+                    // --- SHOWS ---
                     case PageType.MAIN_SHOW_EDITOR:
                         result = this.mainShowPages.mainPage();
                         break;
+                    case PageType.ADD_SHOW:
+                        result = this.mainShowPages.addShowPage();
+                        break;
+                    case PageType.MANAGE_SHOW_MOVIE:
+                        result = this.mainShowPages.manageShowPage();
+                        break;
+                    case PageType.DELETE_SHOW:
+                        result = this.mainShowPages.deleteShowPage();
+                        break;
+                        
+                    // --- SCREENINGS ---
                     case PageType.MAIN_MANAGE_SCREENINGS:
                         result = this.mainScreeningPages.mainPage();
                         break;
                     case PageType.ADD_SCREENING:
                         result = this.mainScreeningPages.addScreeningPage();
                         break;
+
+                    // --- THEATERS (UPDATED) ---
                     case PageType.MAIN_THEATER_EDITOR:
                         result = this.mainTheaterPages.mainPage();
+                        break;
+                    case PageType.ADD_THEATER:
+                        result = this.mainTheaterPages.addTheaterPage();
+                        break;
+                    case PageType.MANAGE_THEATER:
+                        result = this.mainTheaterPages.manageTheaterPage();
+                        break;
+                    case PageType.DELETE_THEATER:
+                        result = this.mainTheaterPages.deleteTheaterPage();
                         break;
                 
                     default:
@@ -82,9 +97,7 @@ public class Cinema {
                     }
                     break;
                 case PageResult.Navigation.BACK_TO_MAIN:
-                    System.out.println("DEBUG: BACK_TO_MAIN triggered.");
                     if (this.history.size() > 1) {
-                        System.out.println("DEBUG: BACK_TO_MAIN triggered. History size: " + this.history.size());
                         PageType mainPage = this.history.peekLast();
                         this.history.clear();
                         this.history.push(mainPage);
