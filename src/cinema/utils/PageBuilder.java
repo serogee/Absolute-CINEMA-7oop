@@ -1,5 +1,6 @@
 package cinema.utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -139,9 +140,22 @@ public class PageBuilder {
         return padding.repeat(leftPadding) + str + padding.repeat(rightPadding);
     }
 
+    public static void clear() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (IOException | InterruptedException ignored) {}
+    }
+
     // Instance Methods
     
     public void display() {
+        PageBuilder.clear();
+
         if (!this.hud.isEmpty()) {
             System.out.println(this.hud);
             System.out.println("=".repeat(Config.INTERFACE_WIDTH));
