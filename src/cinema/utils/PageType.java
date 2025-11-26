@@ -10,9 +10,13 @@ public enum PageType {
         ADD_THEATER,
         DELETE_THEATER,
     MAIN_SHOW_EDITOR,
-        MANAGE_SHOW,
+            MANAGE_SHOW_MOVIE,
+            MANAGE_SHOW_ANIMATED_MOVIE,
+            MANAGE_SHOW_CONCERT_FILM,
         ADD_SHOW,
             SELECT_SHOW_TYPE,
                 ADD_SHOW_MOVIE,
+                ADD_SHOW_ANIMATED_MOVIE,
+                ADD_SHOW_CONCERT_FILM,
         DELETE_SHOW;
 }
