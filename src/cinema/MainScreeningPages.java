@@ -49,8 +49,8 @@ class MainScreeningPages {
                 i + 1, 
                 screening.getShow().toString(), 
                 screening.getTheater().getName(), 
-                screening.getTheater().getRowLength() * screening.getTheater().getColumnLength(), 
                 screening.getResearvedSeatIDs().size(), 
+                screening.getTheater().getRowLength() * screening.getTheater().getColumnLength(), 
                 (screening == screening.getTheater().getCurrentScreening() 
                     ? "[Currently Screening]"
                     : "")
