@@ -45,12 +45,23 @@ public class PageBuilder {
     public void setBody(String body) { this.body = body; }
     public void addOption(Option option) { this.options.add(option); }
     public void addDisplayOption(String displayOption) { this.displayOptions.add(displayOption); }
+    public void clearDisplayOption() { this.displayOptions.clear(); }
     public void addCustomOption(CustomOption customOption) { this.customOptions.add(customOption); }
     public void setEnterOption(Option enterOption) { this.enterOption = enterOption; }
-    public void addPromptInput(String promptInput) { this.promptInputHistory.add(promptInput); }
+    public void addPromptInput(PageResult.DataType input) { 
+        this.promptInputHistory.add("  >> " + input.getPrompt() + ": " + input.toString()); 
+    }
     public void clearPromptInputHistory() { this.promptInputHistory.clear(); }
 
     // Utilities
+    
+    public static String formatAsBody(String line) {
+        return PageBuilder.formatAsBody(Arrays.asList(line.split("\n")));
+    }
+
+    public static String formatAsBody(List<String> lines) {
+        return PageBuilder.formatAsBody(lines, 4, 2);
+    }
 
     public static String formatAsBody(List<String> lines, int padLeft, int padRight) {
         int textMaxWidth = Config.INTERFACE_WIDTH - padLeft - padRight;
@@ -66,16 +77,24 @@ public class PageBuilder {
         int maxTextLength = Math.max(totalWidth - left - right, 0);
 
         StringBuilder result = new StringBuilder();
+        String padLeft = " ".repeat(left);
+        String padRight = " ".repeat(right);
             
-        for (String line : lines) {
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            result.append(padLeft);
             result.append(
                 line.length() > maxTextLength
-                    ? line.substring(0, maxTextLength)
+                    ? line.substring(0, maxTextLength) 
                     : line + " ".repeat(Math.max(maxTextLength - line.length(), 0))
             );
+            result.append(padRight);
+            if (i < lines.size() - 1) {
+                result.append("\n");
+            }
         }
 
-        return " ".repeat(left) + result.toString() + " ".repeat(right);
+        return result.toString();
     }
 
     public static List<String> splitWords(String input, int limit) {
@@ -96,7 +115,7 @@ public class PageBuilder {
             }
             String indent = " ".repeat(indentSize);
 
-            String content = rawLine.substring(indentSize).trim();
+            String content = rawLine.substring(indentSize).strip();
             if (content.isEmpty()) {
                 lines.add(indent);
                 continue;
@@ -107,7 +126,7 @@ public class PageBuilder {
 
                 if (current.length() + word.length() + 1 > limit) {
                     lines.add(current.toString());
-                    current = new StringBuilder(indent);
+                    current = new StringBuilder();
                 }
 
                 if (current.length() > indentSize) {
@@ -120,6 +139,19 @@ public class PageBuilder {
         }
 
         return lines;
+    }
+
+    public static String formatBodyToCenter(String str) {
+        return formatBodyToCenter(str, 4, 2);
+    }
+
+    public static String formatBodyToCenter(String str, int padLeft, int padRight) {
+        int textMaxWidth = Config.INTERFACE_WIDTH - padLeft - padRight;
+        return PageBuilder.formatStringToCenter(str, textMaxWidth);
+    }
+
+    public static String formatStringToCenter(String str, String padding) {
+        return PageBuilder.formatStringToCenter(str, Config.INTERFACE_WIDTH, padding);
     }
 
     public static String formatStringToCenter(String str) {
@@ -166,14 +198,23 @@ public class PageBuilder {
             System.out.println("-".repeat(Config.INTERFACE_WIDTH));
         }
 
-        System.out.println(PageBuilder.formatStringToCenter(this.title));
-        System.out.println(PageBuilder.formatStringToCenter(this.subTitle));
+        System.out.println(PageBuilder.formatStringToCenter("[" + this.title + "]"));
+
+        if (!this.subTitle.isEmpty()) {
+            System.out.println(PageBuilder.formatStringToCenter(this.subTitle));
+        }
         
         if (!this.errorMessage.isEmpty()){
             System.out.println(PageBuilder.formatStringToCenter("## "+ this.errorMessage + " ##"));
+        } else {
+            System.out.println();
         }
 
         System.out.println(this.body);
+
+        if (!this.body.isBlank()) {
+            System.out.println();
+        }
 
         String padLeft = " ".repeat(Config.INTERFACE_WIDTH/10);
 
@@ -185,6 +226,10 @@ public class PageBuilder {
             System.out.println(padLeft + displayOption);
         }
 
+        if ((!this.options.isEmpty() || !this.displayOptions.isEmpty()) && !this.customOptions.isEmpty()) {
+            System.out.println();
+        }
+
         for (CustomOption customOption : this.customOptions) {
             System.out.println(String.format("%s[%s] %s", padLeft, customOption.getToken(), customOption.getLabel()));
         }
@@ -194,14 +239,97 @@ public class PageBuilder {
         }
 
         System.out.println("-".repeat(Config.INTERFACE_WIDTH));
+
+        for (String promptInput : this.promptInputHistory) {
+            System.out.println(promptInput);
+        }
         
         return;
+    }
+
+    public PageResult nextOptionResultInputLoop(String prompt) {
+        PageResult result = null;
+        while (result == null) {
+            try {
+                this.display();
+                result = this.nextOptionResult(prompt);
+            } catch (InputMismatchException e) {
+                this.setErrorMessage("Please enter a valid option!");
+            }
+        }
+        return result;
+    }
+
+    public PageResult.Str nextLineResultInputLoop(String prompt, String emptyErrorMessage) {
+        PageResult.Str input;
+        while (true) {
+            this.display();
+            input = this.nextLine(prompt);
+            if (input.getPageResult() != null) {
+                return input;
+            }
+            if (input.getValue().isEmpty()) {
+                this.setErrorMessage(emptyErrorMessage);
+                continue;
+            }
+            break;
+        }
+        return input;
+
+    }
+
+    public PageResult.Int nextIntResultInputLoop(String prompt, int min, int max, String outOfBoundsErrorMessage) {
+        PageResult.Int input;
+
+        while (true) {
+            try {
+                this.display();
+                input = this.nextInt(prompt);
+
+                if (input.getPageResult() != null)
+                    return input;
+
+                int value = input.getValue();
+                if (value < min || value > max) {
+                    this.setErrorMessage(outOfBoundsErrorMessage);
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                this.setErrorMessage("Please enter a valid number!");
+            }
+        }
+        return input;
+    }
+
+    public PageResult.Char nextColumnInputLoop(String prompt, char min, char max, String outOfBoundsErrorMessage) {
+        PageResult.Char input;
+
+        while (true) {
+            try {
+                this.display();
+                input = this.nextColumn(prompt);
+
+                if (input.getPageResult() != null)
+                    return input;
+     
+                char value = input.getValue();
+                if (value < min || value > max) {
+                    this.setErrorMessage(outOfBoundsErrorMessage);
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                this.setErrorMessage("Please enter a valid number!");
+            }
+        }
+        return input;
     }
 
     public PageResult processOptionResult(String string) {
 
         for (CustomOption customOption : this.customOptions) {
-            if (string.equals(customOption.getToken())) {
+            if (string.equalsIgnoreCase(customOption.getToken())) {
                 return customOption.getPageResult();
             }
         }
@@ -220,10 +348,11 @@ public class PageBuilder {
 
         return null;
     }
+    
 
     public PageResult nextOptionResult(String prompt) throws InputMismatchException {
         System.out.print(String.format("  >> %s: ", prompt));
-        String input = PageBuilder.scanner.nextLine().strip().toUpperCase();
+        String input = PageBuilder.scanner.nextLine().strip();
 
         PageResult pageResult = this.processOptionResult(input);
 
@@ -231,7 +360,6 @@ public class PageBuilder {
             throw new InputMismatchException("Invalid option: '" + input + "' could not be resolved to a valid option.");
         }
 
-        System.out.println("DEBUG: Processed Option Result: " + pageResult.getNextPage());
         return pageResult;
     }
 
@@ -244,15 +372,15 @@ public class PageBuilder {
         PageResult pageResult = this.processOptionResult(input);
 
         if (pageResult == null) {
-            result = new PageResult.Str(input);
+            result = new PageResult.Str(input, prompt);
         } else {
-            result = new PageResult.Str(pageResult);
+            result = new PageResult.Str(pageResult, prompt);
         }
 
         return result;
     }
 
-    public PageResult.Char nextChar(String prompt) throws InputMismatchException {
+    public PageResult.Char nextColumn(String prompt) throws InputMismatchException {
         PageResult.Char result;
 
         System.out.print(String.format("  >> %s: ", prompt));
@@ -264,9 +392,9 @@ public class PageBuilder {
             if (input.isEmpty()) {
                 throw new InputMismatchException("Invalid character: '" + input + "' could not be resolved to a valid character.");
             }
-            result = new PageResult.Char(input.charAt(0));
+            result = new PageResult.Char(Character.toUpperCase(input.charAt(0)), prompt);
         } else {
-            result = new PageResult.Char(pageResult);
+            result = new PageResult.Char(pageResult, prompt);
         }
 
         return result;
@@ -276,18 +404,18 @@ public class PageBuilder {
         PageResult.Int result;
 
         System.out.print(String.format("  >> %s: ", prompt));
-        String input = PageBuilder.scanner.nextLine().trim().toUpperCase();
+        String input = PageBuilder.scanner.nextLine().trim();
 
         PageResult pageResult = this.processOptionResult(input);
 
         if (pageResult == null) {
             try {
-                result = new PageResult.Int(Integer.parseInt(input));
+                result = new PageResult.Int(Integer.parseInt(input), prompt);
             } catch (NumberFormatException e) {
                 throw new InputMismatchException("Invalid integer: '" + input + "' could not be resolved to a valid integer.");
             }
         } else {
-            result = new PageResult.Int(pageResult);
+            result = new PageResult.Int(pageResult, prompt);
         }
 
         return result;

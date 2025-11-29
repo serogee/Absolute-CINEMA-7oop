@@ -9,62 +9,77 @@ public class PageResult {
         NEXT
     }
 
-    private static abstract class DataType {
+    public static abstract class DataType {
         private final PageResult pageResult;
+        private final String prompt;
 
-        DataType(PageResult pageResult) {
+        DataType(PageResult pageResult, String prompt) {
             this.pageResult = pageResult;
+            this.prompt = prompt;
         }
 
-        public PageResult getPageResult() { return pageResult; }
+        public PageResult getPageResult() { return this.pageResult; }
+        public String getPrompt() { return this.prompt; }
+
+        @Override 
+        public abstract String toString();
     }
 
     public static class Char extends DataType {
         private final char value;
 
-        Char(char value) {
-            super(null);
+        Char(char value, String prompt) {
+            super(null, prompt);
             this.value = value;
         }
 
-        Char(PageResult pageResult) {
-            super(pageResult);
+        Char(PageResult pageResult, String prompt) {
+            super(pageResult, prompt);
             this.value = 0;
         }
 
         public char getValue() { return value; }
+
+        @Override 
+        public String toString() { return String.valueOf(this.value); }
     }
 
     public static class Int extends DataType {
         private final int value;
 
-        Int(int value) {
-            super(null);
+        Int(int value, String prompt) {
+            super(null, prompt);
             this.value = value;
         }
 
-        Int(PageResult pageResult) {
-            super(pageResult);
+        Int(PageResult pageResult, String prompt) {
+            super(pageResult, prompt);
             this.value = 0;
         }
 
         public int getValue() { return value; }
+
+        @Override 
+        public String toString() { return String.valueOf(this.value); }
     }
 
     public static class Str extends DataType {
         private final String value;
 
-        Str(String value) {
-            super(null);
+        Str(String value, String prompt) {
+            super(null, prompt);
             this.value = value;
         }
 
-        Str(PageResult pageResult) {
-            super(pageResult);
+        Str(PageResult pageResult, String prompt) {
+            super(pageResult, prompt);
             this.value = "";
         }
 
         public String getValue() { return value; }
+
+        @Override 
+        public String toString() { return this.value; }
     }
 
 
