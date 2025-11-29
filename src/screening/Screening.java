@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import screening.utils.ExperienceType;
 import show.Show;
 import theater.Theater;
 import seat.SeatConflictException;
@@ -13,28 +14,29 @@ import seat.InvalidSeatException;
 public class Screening {
     private Theater theater;
     private Show show;
+    private ExperienceType experienceType;
 
     private Set<String> reservedSeatIDs;
 
-    public Screening(Theater theater, Show show) {
+    public Screening(Theater theater, Show show, ExperienceType experienceType) {
         this.theater = theater;
         this.show = show;
+        this.experienceType = experienceType;
         this.reservedSeatIDs = new HashSet<>();
     }
 
     // Accessors
 
     public Set<String> getResearvedSeatIDs() { return Collections.unmodifiableSet(this.reservedSeatIDs); }
-
     public Theater getTheater() { return this.theater; }
-
     public Show getShow() { return this.show; }
+    public ExperienceType getExperienceType() { return this.experienceType; }
 
     // Mutators
 
     public void setTheater(Theater theater) { this.theater = theater; }
-
     public void setShow(Show show) { this.show = show; }
+    public void setExperienceType(ExperienceType experienceType) { this.experienceType = experienceType; }
 
     // Other Methods
 
@@ -65,4 +67,5 @@ public class Screening {
     }
 
     public void clearSeatReservations() { this.reservedSeatIDs.clear(); }
+
 }
