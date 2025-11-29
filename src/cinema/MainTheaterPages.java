@@ -200,6 +200,10 @@ class MainTheaterPages {
         page.setTitle("Theater Management");
         page.setSubTitle("Set Current Screening for Theater: " + this.workingTheater.getName());
 
+        if (this.cinema.getScreenings().isEmpty()) {
+            page.setErrorMessage("No screening found! Please create one first.");
+        }
+
         List<Screening> availableScreenings = new ArrayList<>();
         for (Screening screening : this.cinema.getScreenings()) {
             if (screening.getTheater() == this.workingTheater) {
