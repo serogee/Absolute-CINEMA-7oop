@@ -39,6 +39,7 @@ class MainScreeningPages {
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Manage Screenings");
 
         for (int i = 0; i < this.cinema.getScreenings().size(); i++) {
@@ -76,6 +77,7 @@ class MainScreeningPages {
     public PageResult addScreeningPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Manage Screenings");
         page.setSubTitle("Add Screening");
 
@@ -165,6 +167,7 @@ class MainScreeningPages {
     public PageResult deleteScreeningPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Manage Screenings");
         page.setSubTitle("Delete Screening");
 
@@ -204,6 +207,7 @@ class MainScreeningPages {
     public PageResult manageScreeningPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Screening Management");
         page.setSubTitle("Manage Screening: " + this.workingScreening.getShow().toString() + " | " + this.workingScreening.getTheater().getName());
 
@@ -234,6 +238,7 @@ class MainScreeningPages {
     public PageResult showSeatLayoutPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Screening Management");
         page.setSubTitle("Seat Layout: " + this.workingScreening.getShow().toString() + " | " + this.workingScreening.getTheater().getName());
         
@@ -249,6 +254,7 @@ class MainScreeningPages {
     public PageResult addSeatReservationPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Screening Management");
         page.setSubTitle("Add Seat Reservation: " + this.workingScreening.getShow().toString() + " | " + this.workingScreening.getTheater().getName());
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
@@ -294,6 +300,7 @@ class MainScreeningPages {
     public PageResult deleteSeatReservationPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Screening Management");
         page.setSubTitle("Delete Seat Reservation: " + this.workingScreening.getShow().toString() + " | " + this.workingScreening.getTheater().getName());
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
@@ -339,6 +346,7 @@ class MainScreeningPages {
     public PageResult editScreeningShowPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Screening Management");
         page.setSubTitle("Edit Show: " + this.workingScreening.getShow().toString() + " | " + this.workingScreening.getTheater().getName());
 
@@ -365,6 +373,7 @@ class MainScreeningPages {
     public PageResult editScreeningTheaterPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Screening Management");
         page.setSubTitle("Edit Theater: " + this.workingScreening.getShow().toString() + " | " + this.workingScreening.getTheater().getName());
 
@@ -393,6 +402,7 @@ class MainScreeningPages {
     public PageResult editScreeningExperienceTypePage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Screening Management");
         page.setSubTitle("Edit Experience Type: " + this.workingScreening.getShow().toString() + " | " + this.workingScreening.getTheater().getName());
 

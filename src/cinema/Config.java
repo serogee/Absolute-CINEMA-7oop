@@ -4,7 +4,19 @@ import cinema.utils.CustomOption;
 import cinema.utils.PageBuilder;
 import cinema.utils.PageResult;
 
+
 public class Config {
+    private static String LOGO = 
+"                       _    _               _       _                           \n" +
+"                      / \\  | |__  ___  ___ | |_   _| |_ ___                     \n" +
+"                     / _ \\ | '_ \\/ __|/ _ \\| | | | | __/ _ \\                    \n" +
+"                    / ___ \\| |_) \\__ \\ (_) | | |_| | ||  __/                    \n" +
+"                   /_/   \\_\\_.__/|___/\\___/|_|\\__,_|\\__\\___|                    \n" +
+"             ▄▄▄▄▄▄▄ ▄▄▄▄▄ ▄▄▄    ▄▄▄  ▄▄▄▄▄▄▄ ▄▄▄      ▄▄▄   ▄▄▄▄              \n" +
+"            ███▀▀▀▀▀  ███  ████▄  ███ ███▀▀▀▀▀ ████▄  ▄████ ▄██▀▀██▄            \n" +
+"            ███       ███  ███▀██▄███ ███▄▄    ███▀████▀███ ███  ███            \n" +
+"            ███       ███  ███  ▀████ ███      ███  ▀▀  ███ ███▀▀███            \n" +
+"            ▀███████ ▄███▄ ███    ███ ▀███████ ███      ███ ███  ███            \n";
 
     public static int INTERFACE_WIDTH = 80;
 
@@ -22,5 +34,7 @@ public class Config {
 
     public static CustomOption NAVIGATE_TO_START = new CustomOption(PageResult.Navigation.BACK_TO_START, "Main Menu", "M");
     
-    public static String HUD_DISPLAY = PageBuilder.formatStringToCenter("Absolute CINEMA [7oop]");
+    public static String HUD_DISPLAY = LOGO;
+
+    public static String HEADER_DISPLAY = "Project by Group 7oop for CS 211, CS-2105";
 }

@@ -189,6 +189,7 @@ public class PageBuilder {
         PageBuilder.clear();
 
         if (!this.hud.isEmpty()) {
+            System.out.println("=".repeat(Config.INTERFACE_WIDTH));
             System.out.println(this.hud);
             System.out.println("=".repeat(Config.INTERFACE_WIDTH));
         }

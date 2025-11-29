@@ -27,6 +27,7 @@ class MainTheaterPages {
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Theater Management");
 
         for (int i = 0; i < this.cinema.getTheathers().size(); i++) {
@@ -54,6 +55,7 @@ class MainTheaterPages {
     public PageResult addTheaterPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Theater Management");
         page.setSubTitle("Add Theater");
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
@@ -101,6 +103,7 @@ class MainTheaterPages {
     public PageResult deleteTheaterPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Theater Management");
         page.setSubTitle("Delete Theater");
         page.setBody(PageBuilder.formatAsBody("    This will permanently delete the selected theater from the system, including all associated screenings!"));;
@@ -136,6 +139,7 @@ class MainTheaterPages {
     public PageResult manageTheaterPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Theater Management");
         page.setSubTitle("Manage Theater: " + this.workingTheater.getName());
 
@@ -172,6 +176,7 @@ class MainTheaterPages {
     public PageResult showTheaterSeatLayoutPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Theater Management");
         page.setSubTitle("Seat Layout for Theater: " + this.workingTheater.getName());
         
@@ -197,6 +202,7 @@ class MainTheaterPages {
 
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Theater Management");
         page.setSubTitle("Set Current Screening for Theater: " + this.workingTheater.getName());
 
@@ -238,6 +244,7 @@ class MainTheaterPages {
     public PageResult editTheaterNamePage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Theater Management");
         page.setSubTitle("Edit Theater Name");
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
@@ -259,6 +266,7 @@ class MainTheaterPages {
     public PageResult editTheaterDimensionsPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Theater Management");
         page.setSubTitle("Edit Theater Dimensions");
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);

@@ -29,6 +29,7 @@ class MainShowPages {
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Show Management");
 
         for (int i = 0; i < this.cinema.getShows().size(); i++) {
@@ -64,6 +65,7 @@ class MainShowPages {
     public PageResult addShowPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Show Management");
         page.setSubTitle("Add Show: Select Show Type");
         page.addOption(new Option(PageType.ADD_SHOW_MOVIE, "Standard Movie"));
@@ -81,6 +83,7 @@ class MainShowPages {
     public PageResult addShowMoviePage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Show Management");
         page.setSubTitle("Add Movie");
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
@@ -141,6 +144,7 @@ class MainShowPages {
         
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Show Management");
         page.setSubTitle("Add Animated Movie");
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
@@ -211,6 +215,7 @@ class MainShowPages {
         
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Show Management");
         page.setSubTitle("Add Concert Film");
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
@@ -280,6 +285,7 @@ class MainShowPages {
     public PageResult deleteShowPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Show Management");
         page.setSubTitle("Delete Show");
 

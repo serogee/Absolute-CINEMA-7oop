@@ -14,6 +14,7 @@ class MainMenuPages {
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Main Menu");
         page.setSubTitle("Welcome to Absolute CINEMA!");
         page.addOption(new Option(PageType.MAIN_SHOW_EDITOR, "Manage Shows"));
