@@ -96,12 +96,12 @@ public class Cinema {
                     case PageType.ADD_SHOW_MOVIE:
                         result = this.mainShowPages.addShowMoviePage();
                         break;
-                    // case PageType.ADD_SHOW_ANIMATED_MOVIE:
-                        // result = this.mainShowPages.addShowAnimatedMoviePage();
-                        // break;
-                    // case PageType.ADD_SHOW_CONCERT_FILM:
-                        // result = this.mainShowPages.addShowConcertFilmPage();
-                        // break;
+                    case PageType.ADD_SHOW_ANIMATED_MOVIE:
+                        result = this.mainShowPages.addShowAnimatedMoviePage();
+                        break;
+                    case PageType.ADD_SHOW_CONCERT_FILM:
+                        result = this.mainShowPages.addShowConcertFilmPage();
+                        break;
                     // case PageType.EDIT_SHOW_TITLE:
                     //     result = this.mainShowPages.editShowMovieTitlePage();
                     //     break;

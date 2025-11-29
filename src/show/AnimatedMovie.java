@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class AnimatedMovie extends Show {
     private String studio;
 
-    public AnimatedMovie(String title, String description, int year, Duration duration, String studio) {
+    public AnimatedMovie(String title, String description, int year, String studio, Duration duration) {
         super(title, description, year, duration);
         this.studio = studio;
     }

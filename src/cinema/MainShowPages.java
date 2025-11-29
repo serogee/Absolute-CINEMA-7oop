@@ -9,6 +9,8 @@ import cinema.utils.PageResult;
 import cinema.utils.PageType;
 import screening.Screening;
 import show.Movie;
+import show.AnimatedMovie;
+import show.ConcertFilm;
 import show.Show;
 
 class MainShowPages {
@@ -49,6 +51,10 @@ class MainShowPages {
         this.workingShow = this.cinema.getShows().get(intInput.getValue() - 1);
         if (this.workingShow instanceof Movie) {
             return PageResult.createResultNextPage(PageType.MANAGE_SHOW_MOVIE);
+        } else if (this.workingShow instanceof AnimatedMovie) {
+            return PageResult.createResultNextPage(PageType.MANAGE_SHOW_ANIMATED_MOVIE);
+        } else if (this.workingShow instanceof ConcertFilm) {
+            return PageResult.createResultNextPage(PageType.MANAGE_SHOW_CONCERT_FILM);
         } else {
             // Should not reach here
             throw new IllegalStateException("Unsupported show type");
@@ -83,25 +89,25 @@ class MainShowPages {
         page.display();
 
         PageResult.Str titleInput = page.nextLineResultInputLoop(
-            "Input Movie Title",
-            "Movie title cannot be empty!"
+            "Input Title",
+            "Ritle cannot be empty!"
         );
         if (titleInput.getPageResult() != null) {
             return titleInput.getPageResult();
         }
         page.addPromptInput(titleInput);
 
-        PageResult.Str descriptionInput = page.nextLine("Input Movie Description");
+        PageResult.Str descriptionInput = page.nextLine("Input Description");
         if (descriptionInput.getPageResult() != null) {
             return descriptionInput.getPageResult();
         }
         page.addPromptInput(descriptionInput);
 
         PageResult.Int yearInput = page.nextIntResultInputLoop(
-            "Input Movie Release Year",
+            "Input Release Year",
             1500,
             3000,
-            "Please enter a valid year!"
+            "Please enter a valid yearbetween 1500 and 3000!"
         );
 
         if (yearInput.getPageResult() != null) {
@@ -110,7 +116,7 @@ class MainShowPages {
         page.addPromptInput(yearInput);
 
         PageResult.Int durationInput = page.nextIntResultInputLoop(
-            "Input Movie Duration (in minutes)",
+            "Input Duration (in minutes)",
             1,
             600,
             "Please enter a valid duration in minutes!"
@@ -118,11 +124,152 @@ class MainShowPages {
         if (durationInput.getPageResult() != null) {
             return durationInput.getPageResult();
         }
+        page.addPromptInput(durationInput);
 
         Movie newMovie = new Movie(
             titleInput.getValue(),
             descriptionInput.getValue(),
             yearInput.getValue(),
+            Duration.ofMinutes(durationInput.getValue())
+        );
+        this.cinema.getShows().add(newMovie);
+
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
+    }
+
+    public PageResult addShowAnimatedMoviePage() {
+        
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Add Animated Movie");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+        PageResult.Str titleInput = page.nextLineResultInputLoop(
+            "Input Title",
+            "Title cannot be empty!"
+        );
+        if (titleInput.getPageResult() != null) {
+            return titleInput.getPageResult();
+        }
+        page.addPromptInput(titleInput);
+
+        PageResult.Str descriptionInput = page.nextLine("Input Description");
+        if (descriptionInput.getPageResult() != null) {
+            return descriptionInput.getPageResult();
+        }
+        page.addPromptInput(descriptionInput);
+
+        PageResult.Int yearInput = page.nextIntResultInputLoop(
+            "Input Release Year",
+            1500,
+            3000,
+            "Please enter a valid year between 1500 and 3000!"
+        );
+
+        if (yearInput.getPageResult() != null) {
+            return yearInput.getPageResult();
+        }
+        page.addPromptInput(yearInput);
+
+        PageResult.Str animationStudioInput = page.nextLineResultInputLoop(
+            "Input Animation Studio",
+            "Animation Studio cannot be empty!"
+        );
+        if (animationStudioInput.getPageResult() != null) {
+            return animationStudioInput.getPageResult();
+        }
+        page.addPromptInput(animationStudioInput);
+
+        PageResult.Int durationInput = page.nextIntResultInputLoop(
+            "Input Duration (in minutes)",
+            1,
+            600,
+            "Please enter a valid duration in minutes!"
+        );
+        if (durationInput.getPageResult() != null) {
+            return durationInput.getPageResult();
+        }
+        page.addPromptInput(durationInput);
+
+        AnimatedMovie newMovie = new AnimatedMovie(
+            titleInput.getValue(),
+            descriptionInput.getValue(),
+            yearInput.getValue(),
+            animationStudioInput.getValue(),
+            Duration.ofMinutes(durationInput.getValue())
+        );
+        this.cinema.getShows().add(newMovie);
+
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
+    }
+
+    public PageResult addShowConcertFilmPage() {
+        
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Add Concert Film");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+        PageResult.Str titleInput = page.nextLineResultInputLoop(
+            "Input Title",
+            "Title cannot be empty!"
+        );
+        if (titleInput.getPageResult() != null) {
+            return titleInput.getPageResult();
+        }
+        page.addPromptInput(titleInput);
+
+        PageResult.Str descriptionInput = page.nextLine("Input Description");
+        if (descriptionInput.getPageResult() != null) {
+            return descriptionInput.getPageResult();
+        }
+        page.addPromptInput(descriptionInput);
+
+        PageResult.Int yearInput = page.nextIntResultInputLoop(
+            "Input Release Year",
+            1500,
+            3000,
+            "Please enter a valid year between 1500 and 3000!"
+        );
+
+        if (yearInput.getPageResult() != null) {
+            return yearInput.getPageResult();
+        }
+        page.addPromptInput(yearInput);
+
+        PageResult.Int durationInput = page.nextIntResultInputLoop(
+            "Input Duration (in minutes)",
+            1,
+            600,
+            "Please enter a valid duration in minutes!"
+        );
+        if (durationInput.getPageResult() != null) {
+            return durationInput.getPageResult();
+        }
+        page.addPromptInput(durationInput);
+
+        PageResult.Str artistName = page.nextLineResultInputLoop(
+            "Input Artist Name",
+            "Artist name cannot be empty!"
+        );
+        if (artistName.getPageResult() != null) {
+            return artistName.getPageResult();
+        }
+        page.addPromptInput(artistName);
+
+        ConcertFilm newMovie = new ConcertFilm(
+            titleInput.getValue(),
+            descriptionInput.getValue(),
+            yearInput.getValue(),
+            artistName.getValue(),
             Duration.ofMinutes(durationInput.getValue())
         );
         this.cinema.getShows().add(newMovie);
