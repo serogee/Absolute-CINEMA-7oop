@@ -1,11 +1,14 @@
 package cinema;
 
-import java.util.InputMismatchException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import cinema.utils.CustomOption;
 import cinema.utils.PageBuilder;
 import cinema.utils.PageResult;
 import cinema.utils.PageType;
+import screening.Screening;
 import theater.Theater;
 
 class MainTheaterPages {
@@ -17,181 +20,275 @@ class MainTheaterPages {
         this.workingTheater = null;
     }
 
-    // [1] LIST THEATERS PAGE
+    public void clearWorkingTheater() {
+        this.workingTheater = null;
+    }
+
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
         page.setTitle("Theater Management");
-
-        if (this.cinema.getTheathers().isEmpty()) {
-            page.setBody("No theaters found.");
-        }
 
         for (int i = 0; i < this.cinema.getTheathers().size(); i++) {
             Theater theater = this.cinema.getTheathers().get(i);
-            page.addDisplayOption(String.format(
-                "[%d] %s | Capacity: %d seats (%dx%d)", 
-                i + 1, 
-                theater.getName(), 
-                theater.getRowLength() * theater.getColumnLength(),
-                theater.getRowLength(),
-                theater.getColumnLength()
-            ));
+            page.addDisplayOption(String.format("[%d] %s (%d rows, %d columns)", i + 1, theater.getName(), theater.getRowLength(), theater.getColumnLength()));
         }
 
         page.addCustomOption(new CustomOption(PageType.ADD_THEATER, "Add Theater", "A"));
         page.addCustomOption(new CustomOption(PageType.DELETE_THEATER, "Delete Theater", "D"));
-        page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_PREVIOUS, "Return", "R"));
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
 
-        PageResult.Int intInput;
-        PageResult result = null;
-        while (result == null) {
-            try {
-                page.display();
-                intInput = page.nextInt("Input Option");
-                
-                if (intInput.getPageResult() == null) { 
-                    int index = intInput.getValue() - 1;
-                    if (index >= 0 && index < this.cinema.getTheathers().size()) {
-                        this.workingTheater = this.cinema.getTheathers().get(index);
-                        result = PageResult.createResultNextPage(PageType.MANAGE_THEATER);
-                    } else {
-                        page.setErrorMessage("Invalid Theater Number");
-                    }
-                } else {
-                    result = intInput.getPageResult();
-                }
-            } catch (Exception e) {
-                page.setErrorMessage("Invalid Input: " + e.getMessage());
-            }
+        PageResult.Int intInput = page.nextIntResultInputLoop(
+            "Input Option",
+            1,
+            this.cinema.getTheathers().size(),
+            "Please select a valid theater number!"
+        );
+        if (intInput.getPageResult() != null) {
+            return intInput.getPageResult();
         }
-        return result;
+        this.workingTheater = this.cinema.getTheathers().get(intInput.getValue() - 1);
+        return PageResult.createResultNextPage(PageType.MANAGE_THEATER);
     }
 
-    // [2] ADD THEATER PAGE
     public PageResult addTheaterPage() {
         PageBuilder page = new PageBuilder();
-        page.setTitle("Add New Theater");
+        page.setHud(Config.HUD_DISPLAY);
+        page.setTitle("Theater Management");
+        page.setSubTitle("Add Theater");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
 
-        // 1. Get Name
-        PageResult.Str nameRes = page.nextLine("Enter Theater Name");
-        if (nameRes.getPageResult() != null) return nameRes.getPageResult();
-        String name = nameRes.getValue();
+        page.display();
+        PageResult.Str strInput = page.nextLineResultInputLoop(
+            "Input Theater Name",
+            "Theater name cannot be empty!"
+        );
+        page.addPromptInput(strInput);
 
-        // 2. Get Rows
-        int rows = 0;
-        while (true) {
-            try {
-                PageResult.Int rowRes = page.nextInt("Enter Number of Rows");
-                if (rowRes.getPageResult() != null) return rowRes.getPageResult();
-                rows = rowRes.getValue();
-                if (rows > 0) break;
-                System.out.println("Rows must be greater than 0.");
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid number.");
-            }
+        if (strInput.getPageResult() != null) {
+            return strInput.getPageResult();
+        } 
+
+        PageResult.Int rowLength = page.nextIntResultInputLoop(
+            "Input Row Length",
+            1,
+            Config.MAX_ROWS,
+            "Row length must be between 1 and " + Config.MAX_ROWS + "!"
+        );
+        if (rowLength.getPageResult() != null) {
+            return rowLength.getPageResult();
         }
+        page.addPromptInput(rowLength);
 
-        // 3. Get Columns
-        int cols = 0;
-        while (true) {
-            try {
-                PageResult.Int colRes = page.nextInt("Enter Number of Columns");
-                if (colRes.getPageResult() != null) return colRes.getPageResult();
-                cols = colRes.getValue();
-                if (cols > 0) break;
-                System.out.println("Columns must be greater than 0.");
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid number.");
-            }
+
+        PageResult.Int columnLength = page.nextIntResultInputLoop(
+            "Input Column Length",
+            1,
+            Config.MAX_COLUMNS,
+            "Column length must be between 1 and " + Config.MAX_COLUMNS + "!"
+        );
+        if (columnLength.getPageResult() != null) {
+            return columnLength.getPageResult();
         }
-
-        // 4. Create
-        this.cinema.getTheathers().add(new Theater(name, rows, cols));
-        System.out.println("Theater Added Successfully!");
-        try { Thread.sleep(800); } catch (Exception e) {}
+        
+        Theater newTheater = new Theater(strInput.getValue(), rowLength.getValue(), columnLength.getValue());
+        this.cinema.getTheathers().add(newTheater);
 
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
 
-    // [3] MANAGE / VIEW DETAILS PAGE
-    public PageResult manageTheaterPage() {
-        PageBuilder page = new PageBuilder();
-        
-        if (this.workingTheater == null) {
-            return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
-        }
-
-        page.setTitle("Theater Details: " + this.workingTheater.getName());
-        
-        StringBuilder body = new StringBuilder();
-        body.append("Name:      ").append(this.workingTheater.getName()).append("\n");
-        body.append("Dimensions: ").append(this.workingTheater.getRowLength())
-            .append(" rows x ").append(this.workingTheater.getColumnLength()).append(" columns\n");
-        body.append("Total Seats:").append(this.workingTheater.getRowLength() * this.workingTheater.getColumnLength()).append("\n");
-        body.append("-".repeat(30)).append("\n");
-        body.append("Seat Layout Preview:\n");
-        
-        // This generates the visual map defined in Theater.java
-        body.append(this.workingTheater.generateSeatLayoutDisplay());
-
-        page.setBody(body.toString());
-
-        page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_PREVIOUS, "Return", "R"));
-
-        try {
-            page.display();
-            return page.nextOptionResult("Option");
-        } catch (Exception e) {
-            return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
-        }
-    }
-
-    // [4] DELETE THEATER PAGE
     public PageResult deleteTheaterPage() {
         PageBuilder page = new PageBuilder();
-        page.setTitle("Delete Theater");
-
-        if (this.cinema.getTheathers().isEmpty()) {
-            page.setBody("No theaters available to delete.");
-            page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_PREVIOUS, "Return", "R"));
-            try { page.display(); return page.nextOptionResult("Option"); } catch(Exception e) { return null; }
-        }
+        page.setHud(Config.HUD_DISPLAY);
+        page.setTitle("Theater Management");
+        page.setSubTitle("Delete Theater");
+        page.setBody(PageBuilder.formatAsBody("    This will permanently delete the selected theater from the system, including all associated screenings!"));;
 
         for (int i = 0; i < this.cinema.getTheathers().size(); i++) {
             Theater theater = this.cinema.getTheathers().get(i);
-            page.addDisplayOption(String.format("[%d] %s", i + 1, theater.getName()));
+            page.addDisplayOption("[" + (i + 1) + "] Theater: " + theater.getName() + " | Seats: " + (theater.getRowLength() * theater.getColumnLength()));
         }
 
-        page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_PREVIOUS, "Cancel", "C"));
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
 
-        try {
-            page.display();
-            PageResult.Int choice = page.nextInt("Select Theater to DELETE");
-            
-            if (choice.getPageResult() != null) return choice.getPageResult();
+        PageResult.Int intInput = page.nextIntResultInputLoop(
+            "Input Option",
+            1,
+            this.cinema.getTheathers().size(),
+            "Please select a valid theater number!"
+        );
+        if (intInput.getPageResult() != null) {
+            return intInput.getPageResult();
+        }
 
-            int index = choice.getValue() - 1;
-            if (index >= 0 && index < this.cinema.getTheathers().size()) {
-                Theater removed = this.cinema.getTheathers().remove(index);
-                
-                // CASCADE DELETE: Remove all screenings in this theater
-                int originalSize = this.cinema.getScreenings().size();
-                this.cinema.getScreenings().removeIf(s -> s.getTheater().equals(removed));
-                int deletedScreenings = originalSize - this.cinema.getScreenings().size();
-
-                System.out.println("!!! DELETED: " + removed.getName() + " !!!");
-                if (deletedScreenings > 0) {
-                    System.out.println("!!! Automatically cancelled " + deletedScreenings + " screenings in this theater !!!");
-                }
-                try { Thread.sleep(1500); } catch (Exception e) {}
-            } else {
-                page.setErrorMessage("Invalid Theater Number");
+        int indexToDelete = intInput.getValue() - 1;
+        for (Screening screening : this.cinema.getScreenings()) {
+            if (screening.getTheater() == this.cinema.getTheathers().get(indexToDelete)) {
+                this.cinema.getScreenings().remove(screening);
             }
-
-        } catch (Exception e) {
-            // Ignore
         }
-        
+        this.cinema.getTheathers().remove(indexToDelete);
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
+
+    public PageResult manageTheaterPage() {
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setTitle("Theater Management");
+        page.setSubTitle("Manage Theater: " + this.workingTheater.getName());
+
+        List<String> bodyLines = new ArrayList<>();
+        bodyLines.add("Dimensions: " + this.workingTheater.getRowLength() + " rows x " + this.workingTheater.getColumnLength() + " columns");
+        bodyLines.add("Total Seats: " + (this.workingTheater.getRowLength() * this.workingTheater.getColumnLength()));
+
+        Screening screening = this.workingTheater.getCurrentScreening();
+        if (screening != null) {
+            bodyLines.add(PageBuilder.formatBodyToCenter("{Currently Screening}"));
+            bodyLines.addAll(screening.getShow().getLongInfo());
+            bodyLines.add("Experience Type: " + screening.getExperienceType());
+        } else {
+            bodyLines.add("Currently Screening: None");
+        }
+        bodyLines.add("");
+        page.setBody(PageBuilder.formatAsBody(bodyLines));
+
+        if (screening != null) {
+            page.addCustomOption(new CustomOption(PageType.SET_CURRENT_SCREENING, "End Current Screening", "A"));
+        } else {
+            page.addCustomOption(new CustomOption(PageType.SET_CURRENT_SCREENING, "Start Screening", "A"));
+        }
+
+        page.addCustomOption(new CustomOption(PageType.SHOW_THEATER_SEAT_LAYOUT, "Show Seat Layout", "S"));
+        page.addCustomOption(new CustomOption(PageType.EDIT_THEATER_DIMENSIONS, "Edit Theater Dimensions", "D"));
+        page.addCustomOption(new CustomOption(PageType.EDIT_THEATER_NAME, "Edit Theater Name", "F"));
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+
+        return page.nextOptionResultInputLoop("Input Option");
+    }
+
+    public PageResult showTheaterSeatLayoutPage() {
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setTitle("Theater Management");
+        page.setSubTitle("Seat Layout for Theater: " + this.workingTheater.getName());
+        
+        List<String> bodyLines = new ArrayList<>();
+        for (String line : Arrays.asList(this.workingTheater.generateSeatLayoutDisplay().split("\n"))) {
+            bodyLines.add(PageBuilder.formatStringToCenter(line));
+        }
+        page.setBody(String.join("\n", bodyLines));
+
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_THEATER);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+
+        return page.nextOptionResultInputLoop("Input Option");
+    }
+
+    public PageResult setCurrentScreeningPage() {
+
+        if (this.workingTheater.getCurrentScreening() != null) {
+            this.workingTheater.endScreening();
+            return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+        }
+
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setTitle("Theater Management");
+        page.setSubTitle("Set Current Screening for Theater: " + this.workingTheater.getName());
+
+        List<Screening> availableScreenings = new ArrayList<>();
+        for (Screening screening : this.cinema.getScreenings()) {
+            if (screening.getTheater() == this.workingTheater) {
+                availableScreenings.add(screening);
+            }
+        }
+
+        for (int i = 0; i < availableScreenings.size(); i++) {
+            Screening screening = availableScreenings.get(i);
+            page.addDisplayOption("[" + (i + 1) + "] " + screening.getShow().toString() + " | " + screening.getShow().getShowTypeAsString());
+        }
+
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+
+        PageResult.Int intInput = page.nextIntResultInputLoop(
+            "Input Option",
+            1,
+            availableScreenings.size(),
+            "Please select a valid screening number!"
+        );
+
+        if (intInput.getPageResult() != null) {
+            return intInput.getPageResult();
+        }
+
+        int index = intInput.getValue() - 1;
+        this.workingTheater.startScreening(availableScreenings.get(index));
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+    }
+
+    public PageResult editTheaterNamePage() {
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setTitle("Theater Management");
+        page.setSubTitle("Edit Theater Name");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+
+        PageResult.Str strInput = page.nextLineResultInputLoop(
+            "Input New Theater Name",
+            "Theater name cannot be empty!"
+        );
+
+        if (strInput.getPageResult() != null) {
+            return strInput.getPageResult();
+        }
+        this.workingTheater.setName(strInput.getValue()); 
+        
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+    }
+
+    public PageResult editTheaterDimensionsPage() {
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setTitle("Theater Management");
+        page.setSubTitle("Edit Theater Dimensions");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+
+        PageResult.Int rowLength = page.nextIntResultInputLoop(
+            "Input New Row Length",
+            1,
+            Config.MAX_ROWS,
+            "Row length must be between 1 and " + Config.MAX_ROWS + "!"
+        );
+        if (rowLength.getPageResult() != null) {
+            return rowLength.getPageResult();
+        }
+        page.addPromptInput(rowLength);
+
+        PageResult.Int columnLength = page.nextIntResultInputLoop(
+            "Input New Column Length",
+            1,
+            Config.MAX_COLUMNS,
+            "Column length must be between 1 and " + Config.MAX_COLUMNS + "!"
+        );
+        if (columnLength.getPageResult() != null) {
+            return columnLength.getPageResult();
+        }
+
+        for (Screening screening : this.cinema.getScreenings()) {
+            if (screening.getTheater() == this.workingTheater) {
+                screening.clearSeatReservations();
+            }
+        }
+        this.workingTheater.setSeatLayoutDimensions(rowLength.getValue(), columnLength.getValue());
+
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+    }
+
 }

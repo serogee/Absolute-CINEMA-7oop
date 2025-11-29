@@ -6,16 +6,20 @@ import cinema.utils.PageType;
 
 import java.util.InputMismatchException;
 
+import cinema.utils.CustomOption;
 import cinema.utils.Option;
 
 class MainMenuPages {
 
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
         page.setTitle("Main Menu");
+        page.setSubTitle("Welcome to Absolute CINEMA!");
         page.addOption(new Option(PageType.MAIN_SHOW_EDITOR, "Manage Shows"));
         page.addOption(new Option(PageType.MAIN_MANAGE_SCREENINGS, "Manage Screenings"));
         page.addOption(new Option(PageType.MAIN_THEATER_EDITOR, "Manage Theaters"));
+        page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_EXIT, "Quit", "Q"));
 
         PageResult result = null;
         while (result == null) {
