@@ -1,23 +1,40 @@
 package show;
 
-import java.util.Set;
-
-import show.utils.ExperienceType;
+import java.time.Duration;
+import java.util.ArrayList;
 
 public abstract class Show {
-    public final Set<ExperienceType> experiencetype;
     private String title;
-    private String description; 
+    private String description;
     private int releaseYear;
+    private Duration duration;
 
-    public Show(String title, Set<ExperienceType> experiencetypes, String description, int releaseYear) {
+    public Show(String title, String description, int releaseYear, Duration duration) {
         this.title = title;
-        this.experiencetype = experiencetypes;
         this.description = description;
         this.releaseYear = releaseYear;
+        this.duration = duration;
     }
 
     public String getTitle() { return this.title; }
     public String getDescription() { return this.description; }
     public int getReleaseYear() { return this.releaseYear; }
+    public Duration getDuration() { return this.duration; }
+
+    public void setTitle(String title) { this.title = title; }
+    public void setDescription(String description) { this.description = description; }
+    public void setReleaseYear(int releaseYear) { this.releaseYear = releaseYear; }
+    public void setDuration(Duration duration) { this.duration = duration; }
+
+    @Override
+    public String toString() {
+        return this.title + " (" + this.releaseYear + ")";
+    }
+    
+    public String getShortInfo() {
+        return String.format("%s (%d) [%d:%d] - %s", this.title, this.releaseYear, this.duration.toHours(), this.duration.toMinutesPart(), this.getShowTypeAsString());
+    }
+
+    public abstract String getShowTypeAsString();
+    public abstract ArrayList<String> getLongInfo();
 }
