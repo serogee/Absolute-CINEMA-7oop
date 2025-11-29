@@ -296,7 +296,7 @@ public class PageBuilder {
                 }
                 break;
             } catch (InputMismatchException e) {
-                this.setErrorMessage("Please enter a valid number!");
+                this.setErrorMessage("Please enter a valid option!");
             }
         }
         return input;
@@ -320,7 +320,7 @@ public class PageBuilder {
                 }
                 break;
             } catch (InputMismatchException e) {
-                this.setErrorMessage("Please enter a valid number!");
+                this.setErrorMessage("Please enter a valid option!");
             }
         }
         return input;
