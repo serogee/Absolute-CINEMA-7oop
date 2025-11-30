@@ -90,9 +90,14 @@ public class Cinema {
                     case PageType.MAIN_SHOW_EDITOR:
                         result = this.mainShowPages.mainPage();
                         break;
+                    case PageType.DELETE_SHOW:
+                        result = this.mainShowPages.deleteShowPage();
+                        break;
                     case PageType.ADD_SHOW:
                         result = this.mainShowPages.addShowPage();
                         break;
+
+                        // Add Specific Show
                     case PageType.ADD_SHOW_MOVIE:
                         result = this.mainShowPages.addShowMoviePage();
                         break;
@@ -102,32 +107,40 @@ public class Cinema {
                     case PageType.ADD_SHOW_CONCERT_FILM:
                         result = this.mainShowPages.addShowConcertFilmPage();
                         break;
-                    // case PageType.EDIT_SHOW_TITLE:
-                    //     result = this.mainShowPages.editShowMovieTitlePage();
-                    //     break;
-                    // case PageType.EDIT_SHOW_DESCRIPTION:
-                    //     result = this.mainShowPages.editShowMovieDescriptionPage();
-                    //     break;
-                    // case PageType.EDIT_SHOW_RELEASE_YEAR:
-                    //     result = this.mainShowPages.editShowMovieReleaseYearPage();
-                    //     break;
-                    // case PageType.MANAGE_SHOW_MOVIE:
-                        // result = this.mainShowPages.manageShowMoviePage();
-                        // break;
-                    // case PageType.MANAGE_SHOW_ANIMATED_MOVIE:
-                        // result = this.mainShowPages.manageShowAnimatedMoviePage();
-                        // break;
-                    // case PageType.EDIT_ANIMATION_STYLE:
-                        // result = this.mainShowPages.manageShowConcertFilmPage();
-                        // break;
-                    // case PageType.MANAGE_SHOW_CONCERT_FILM:
-                        // result = this.mainShowPages.manageShowConcertFilmPage();
-                        // break;
-                    // case PageType.EDIT_CONCERT_PERFORMER:
-                        // result = this.mainShowPages.editShowConcertFilmPerformerPage();
-                        // break;
-                    case PageType.DELETE_SHOW:
-                        result = this.mainShowPages.deleteShowPage();
+
+                    case PageType.MANAGE_SHOW_MOVIE:
+                        result = this.mainShowPages.manageShowMoviePage();
+                        break;
+                    case PageType.EDIT_MOVIE_LEAD_ACTOR:
+                        result = this.mainShowPages.editLeadActorPage();
+                        break;
+
+                    case PageType.MANAGE_SHOW_ANIMATED_MOVIE:
+                        result = this.mainShowPages.manageShowAnimatedMoviePage();
+                        break;
+                    case PageType.EDIT_ANIMATED_MOVIE_ANIMATION_STUDIO:
+                        result = this.mainShowPages.editAnimationStudioPage();
+                        break;
+                            
+                    case PageType.MANAGE_SHOW_CONCERT_FILM:
+                        result = this.mainShowPages.manageShowConcertFilmPage();
+                        break;
+                    case PageType.EDIT_CONCERT_FILM_ARTIST:
+                        result = this.mainShowPages.editArtistPage();
+                        break;
+                        
+                        // Edit Universal Show Fields
+                    case PageType.EDIT_SHOW_TITLE:
+                        result = this.mainShowPages.editShowTitlePage();
+                        break;
+                    case PageType.EDIT_SHOW_DESCRIPTION:
+                        result = this.mainShowPages.editShowDescriptionPage();
+                        break;
+                    case PageType.EDIT_SHOW_RELEASE_YEAR:
+                        result = this.mainShowPages.editShowReleaseYearPage();
+                        break;
+                    case PageType.EDIT_SHOW_DURATION:
+                        result = this.mainShowPages.editShowDurationPage();
                         break;
 
                     // Manage Theaters

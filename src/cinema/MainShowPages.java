@@ -26,6 +26,57 @@ class MainShowPages {
         this.workingShow = null;
     }
 
+    public PageResult.Str inputTitle(PageBuilder page) {
+        return page.nextLineResultInputLoop(
+            "Input Title",
+            "Title cannot be empty!"
+        );
+    }
+
+    public PageResult.Str inputDescription(PageBuilder page) {
+        return page.nextLine("Input Description");
+    }
+
+    public PageResult.Int inputReleaseYear(PageBuilder page) {
+        return page.nextIntResultInputLoop(
+            "Input Release Year",
+            1500,
+            3000,
+            "Please enter a valid yearbetween 1500 and 3000!"
+        );
+
+    }
+
+    public PageResult.Int inputDuration(PageBuilder page) {
+        return page.nextIntResultInputLoop(
+            "Input Duration (in minutes)",
+            1,
+            600,
+            "Please enter a valid duration in minutes!"
+        );
+    }
+
+    public PageResult.Str inputLeadActor(PageBuilder page) {
+        return page.nextLineResultInputLoop(
+            "Input Lead Actor",
+            "Lead Actor cannot be empty!"
+        );
+    }
+
+    public PageResult.Str inputAnimationStudio(PageBuilder page) {
+        return page.nextLineResultInputLoop(
+            "Input Animation Studio",
+            "Animation Studio cannot be empty!"
+        );
+    }
+
+    public PageResult.Str inputArtistName(PageBuilder page) {
+        return page.nextLineResultInputLoop(
+            "Input Artist Name",
+            "Artist name cannot be empty!"
+        );
+    }
+
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -85,45 +136,38 @@ class MainShowPages {
         page.setHud(Config.HUD_DISPLAY);
         page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Show Management");
-        page.setSubTitle("Add Movie");
+        page.setSubTitle("Add Standard Movie");
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
         page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
         page.addCustomOption(Config.NAVIGATE_TO_START);
         page.display();
 
-        PageResult.Str titleInput = page.nextLineResultInputLoop(
-            "Input Title",
-            "Ritle cannot be empty!"
-        );
+        PageResult.Str titleInput = this.inputTitle(page);
         if (titleInput.getPageResult() != null) {
             return titleInput.getPageResult();
         }
         page.addPromptInput(titleInput);
 
-        PageResult.Str descriptionInput = page.nextLine("Input Description");
+        PageResult.Str descriptionInput = this.inputDescription(page);
         if (descriptionInput.getPageResult() != null) {
             return descriptionInput.getPageResult();
         }
         page.addPromptInput(descriptionInput);
 
-        PageResult.Int yearInput = page.nextIntResultInputLoop(
-            "Input Release Year",
-            1500,
-            3000,
-            "Please enter a valid yearbetween 1500 and 3000!"
-        );
+        PageResult.Int yearInput = this.inputReleaseYear(page);
 
         if (yearInput.getPageResult() != null) {
             return yearInput.getPageResult();
         }
         page.addPromptInput(yearInput);
 
-        PageResult.Int durationInput = page.nextIntResultInputLoop(
-            "Input Duration (in minutes)",
-            1,
-            600,
-            "Please enter a valid duration in minutes!"
-        );
+        PageResult.Str leadActorInput = this.inputLeadActor(page);
+        if (leadActorInput.getPageResult() != null) {
+            return leadActorInput.getPageResult();
+        }
+        page.addPromptInput(leadActorInput);
+
+        PageResult.Int durationInput = this.inputDuration(page);
         if (durationInput.getPageResult() != null) {
             return durationInput.getPageResult();
         }
@@ -133,6 +177,7 @@ class MainShowPages {
             titleInput.getValue(),
             descriptionInput.getValue(),
             yearInput.getValue(),
+            leadActorInput.getValue(),
             Duration.ofMinutes(durationInput.getValue())
         );
         this.cinema.getShows().add(newMovie);
@@ -152,48 +197,32 @@ class MainShowPages {
         page.addCustomOption(Config.NAVIGATE_TO_START);
         page.display();
 
-        PageResult.Str titleInput = page.nextLineResultInputLoop(
-            "Input Title",
-            "Title cannot be empty!"
-        );
+        PageResult.Str titleInput = this.inputTitle(page);
         if (titleInput.getPageResult() != null) {
             return titleInput.getPageResult();
         }
         page.addPromptInput(titleInput);
 
-        PageResult.Str descriptionInput = page.nextLine("Input Description");
+        PageResult.Str descriptionInput = this.inputDescription(page);
         if (descriptionInput.getPageResult() != null) {
             return descriptionInput.getPageResult();
         }
         page.addPromptInput(descriptionInput);
 
-        PageResult.Int yearInput = page.nextIntResultInputLoop(
-            "Input Release Year",
-            1500,
-            3000,
-            "Please enter a valid year between 1500 and 3000!"
-        );
+        PageResult.Int yearInput = this.inputReleaseYear(page);
 
         if (yearInput.getPageResult() != null) {
             return yearInput.getPageResult();
         }
         page.addPromptInput(yearInput);
 
-        PageResult.Str animationStudioInput = page.nextLineResultInputLoop(
-            "Input Animation Studio",
-            "Animation Studio cannot be empty!"
-        );
+        PageResult.Str animationStudioInput = this.inputAnimationStudio(page);
         if (animationStudioInput.getPageResult() != null) {
             return animationStudioInput.getPageResult();
         }
         page.addPromptInput(animationStudioInput);
 
-        PageResult.Int durationInput = page.nextIntResultInputLoop(
-            "Input Duration (in minutes)",
-            1,
-            600,
-            "Please enter a valid duration in minutes!"
-        );
+        PageResult.Int durationInput = this.inputDuration(page);
         if (durationInput.getPageResult() != null) {
             return durationInput.getPageResult();
         }
@@ -223,52 +252,36 @@ class MainShowPages {
         page.addCustomOption(Config.NAVIGATE_TO_START);
         page.display();
 
-        PageResult.Str titleInput = page.nextLineResultInputLoop(
-            "Input Title",
-            "Title cannot be empty!"
-        );
+        PageResult.Str titleInput = this.inputTitle(page);
         if (titleInput.getPageResult() != null) {
             return titleInput.getPageResult();
         }
         page.addPromptInput(titleInput);
 
-        PageResult.Str descriptionInput = page.nextLine("Input Description");
+        PageResult.Str descriptionInput = this.inputDescription(page);
         if (descriptionInput.getPageResult() != null) {
             return descriptionInput.getPageResult();
         }
         page.addPromptInput(descriptionInput);
 
-        PageResult.Int yearInput = page.nextIntResultInputLoop(
-            "Input Release Year",
-            1500,
-            3000,
-            "Please enter a valid year between 1500 and 3000!"
-        );
+        PageResult.Int yearInput = this.inputReleaseYear(page);
 
         if (yearInput.getPageResult() != null) {
             return yearInput.getPageResult();
         }
         page.addPromptInput(yearInput);
 
-        PageResult.Int durationInput = page.nextIntResultInputLoop(
-            "Input Duration (in minutes)",
-            1,
-            600,
-            "Please enter a valid duration in minutes!"
-        );
-        if (durationInput.getPageResult() != null) {
-            return durationInput.getPageResult();
-        }
-        page.addPromptInput(durationInput);
-
-        PageResult.Str artistName = page.nextLineResultInputLoop(
-            "Input Artist Name",
-            "Artist name cannot be empty!"
-        );
+        PageResult.Str artistName = this.inputArtistName(page);
         if (artistName.getPageResult() != null) {
             return artistName.getPageResult();
         }
         page.addPromptInput(artistName);
+
+        PageResult.Int durationInput = this.inputDuration(page);
+        if (durationInput.getPageResult() != null) {
+            return durationInput.getPageResult();
+        }
+        page.addPromptInput(durationInput);
 
         ConcertFilm newMovie = new ConcertFilm(
             titleInput.getValue(),
@@ -281,6 +294,256 @@ class MainShowPages {
 
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
+
+    public PageResult manageShowMoviePage() {
+        if (!(this.workingShow instanceof Movie)) {
+            // Should not reach here, only for checking purposes
+            throw new IllegalStateException("Show type '" + this.workingShow.getShowTypeAsString() + "' is not compatible with the method.");
+        }
+
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Manage " + this.workingShow.getShowTypeAsString());
+        page.setBody(PageBuilder.formatStringToCenter("{Info}") + "\n" + PageBuilder.formatAsBody(this.workingShow.getLongInfo()));
+        page.addOption(new Option(PageType.EDIT_SHOW_TITLE, "Edit Title"));
+        page.addOption(new Option(PageType.EDIT_SHOW_DESCRIPTION, "Edit Description"));
+        page.addOption(new Option(PageType.EDIT_SHOW_RELEASE_YEAR, "Edit Release Year"));
+        page.addOption(new Option(PageType.EDIT_MOVIE_LEAD_ACTOR, "Edit Lead Actor"));
+        page.addOption(new Option(PageType.EDIT_SHOW_DURATION, "Edit Duration"));
+        
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+        return page.nextOptionResultInputLoop("Input Option");
+    }
+
+    public PageResult manageShowAnimatedMoviePage() {
+        if (!(this.workingShow instanceof AnimatedMovie)) {
+            // Should not reach here, only for checking purposes
+            throw new IllegalStateException("Show type '" + this.workingShow.getShowTypeAsString() + "' is not compatible with the method.");
+        }
+
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Manage " + this.workingShow.getShowTypeAsString());
+        page.setBody(PageBuilder.formatStringToCenter("{Info}") + "\n" + PageBuilder.formatAsBody(this.workingShow.getLongInfo()));
+        page.addOption(new Option(PageType.EDIT_SHOW_TITLE, "Edit Title"));
+        page.addOption(new Option(PageType.EDIT_SHOW_DESCRIPTION, "Edit Description"));
+        page.addOption(new Option(PageType.EDIT_SHOW_RELEASE_YEAR, "Edit Release Year"));
+        page.addOption(new Option(PageType.EDIT_ANIMATED_MOVIE_ANIMATION_STUDIO, "Edit Animation Studio"));
+        page.addOption(new Option(PageType.EDIT_SHOW_DURATION, "Edit Duration"));
+        
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+        return page.nextOptionResultInputLoop("Input Option");
+    }
+
+    public PageResult manageShowConcertFilmPage() {
+        if (!(this.workingShow instanceof ConcertFilm)) {
+            // Should not reach here, only for checking purposes
+            throw new IllegalStateException("Show type '" + this.workingShow.getShowTypeAsString() + "' is not compatible with the method.");
+        }
+
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Manage " + this.workingShow.getShowTypeAsString());
+        page.setBody(PageBuilder.formatStringToCenter("{Info}") + "\n" + PageBuilder.formatAsBody(this.workingShow.getLongInfo()));
+        page.addOption(new Option(PageType.EDIT_SHOW_TITLE, "Edit Title"));
+        page.addOption(new Option(PageType.EDIT_SHOW_DESCRIPTION, "Edit Description"));
+        page.addOption(new Option(PageType.EDIT_SHOW_RELEASE_YEAR, "Edit Release Year"));
+        page.addOption(new Option(PageType.EDIT_CONCERT_FILM_ARTIST, "Edit Artist"));
+        page.addOption(new Option(PageType.EDIT_SHOW_DURATION, "Edit Duration"));
+        
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+        return page.nextOptionResultInputLoop("Input Option");
+    }
+
+    public PageResult editShowTitlePage() {
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Edit " + this.workingShow.getShowTypeAsString() + " Title");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+
+        PageResult.Str titleInput = this.inputTitle(page);
+        if (titleInput.getPageResult() != null) {
+            return titleInput.getPageResult();
+        }
+        page.addPromptInput(titleInput);
+
+        this.workingShow.setTitle(titleInput.getValue());
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+    }
+
+    public PageResult editShowDescriptionPage() {
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Edit " + this.workingShow.getShowTypeAsString() + " Description");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+
+        PageResult.Str descriptionInput = this.inputDescription(page);
+        if (descriptionInput.getPageResult() != null) {
+            return descriptionInput.getPageResult();
+        }
+        page.addPromptInput(descriptionInput);
+
+        this.workingShow.setDescription(descriptionInput.getValue());
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+    }
+
+    public PageResult editShowReleaseYearPage() {
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Edit " + this.workingShow.getShowTypeAsString() + " Release Year");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+        PageResult.Int yearInput = this.inputReleaseYear(page);
+        if (yearInput.getPageResult() != null) {
+            return yearInput.getPageResult();
+        }
+        page.addPromptInput(yearInput);
+
+        this.workingShow.setReleaseYear(yearInput.getValue());
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+    }
+
+    public PageResult editShowDurationPage() {
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Edit " + this.workingShow.getShowTypeAsString() + " Duration");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+        PageResult.Int durationInput = this.inputDuration(page);
+        if (durationInput.getPageResult() != null) {
+            return durationInput.getPageResult();
+        }
+        page.addPromptInput(durationInput);
+
+        this.workingShow.setDuration(Duration.ofMinutes(durationInput.getValue()));
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+    }
+
+    public PageResult editLeadActorPage() {
+        if (!(this.workingShow instanceof Movie)) {
+            // Should not reach here, only for checking purposes
+            throw new IllegalStateException("Show type '" + this.workingShow.getShowTypeAsString() + "' is not compatible with the method.");
+        }
+        Movie movie = (Movie) this.workingShow; 
+
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Edit " + this.workingShow.getShowTypeAsString() + " Lead Actor");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+        PageResult.Str leadActorInput = this.inputLeadActor(page);
+        if (leadActorInput.getPageResult() != null) {
+            return leadActorInput.getPageResult();
+        }
+        page.addPromptInput(leadActorInput);
+
+
+        movie.setLeadActor(leadActorInput.getValue());
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+    }
+
+    public PageResult editAnimationStudioPage() {
+        if (!(this.workingShow instanceof AnimatedMovie)) {
+            // Should not reach here, only for checking purposes
+            throw new IllegalStateException("Show type '" + this.workingShow.getShowTypeAsString() + "' is not compatible with the method.");
+        }
+        AnimatedMovie animatedMovie = (AnimatedMovie) this.workingShow; 
+
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Edit " + this.workingShow.getShowTypeAsString() + " Animation Studio");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+        PageResult.Str animationStudioInput = this.inputAnimationStudio(page);
+        if (animationStudioInput.getPageResult() != null) {
+            return animationStudioInput.getPageResult();
+        }
+        page.addPromptInput(animationStudioInput);
+
+
+        animatedMovie.setStudio(animationStudioInput.getValue());
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+    }
+
+    public PageResult editArtistPage() {
+        if (!(this.workingShow instanceof ConcertFilm)) {
+            // Should not reach here, only for checking purposes
+            throw new IllegalStateException("Show type '" + this.workingShow.getShowTypeAsString() + "' is not compatible with the method.");
+        }
+        ConcertFilm concertFilm = (ConcertFilm) this.workingShow; 
+        
+        PageBuilder page = new PageBuilder();
+        page.setHud(Config.HUD_DISPLAY);
+        page.setHeader(Config.HEADER_DISPLAY);
+        page.setTitle("Show Management");
+        page.setSubTitle("Edit " + this.workingShow.getShowTypeAsString() + " Artist");
+        page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
+        page.addCustomOption(Config.NAVIGATE_TO_MAIN_SHOW);
+        page.addCustomOption(Config.NAVIGATE_TO_START);
+        page.display();
+
+        PageResult.Str artistName = this.inputArtistName(page);
+        if (artistName.getPageResult() != null) {
+            return artistName.getPageResult();
+        }
+        page.addPromptInput(artistName);
+
+
+        concertFilm.setArtist(artistName.getValue());
+        return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+    }
+
+
 
     public PageResult deleteShowPage() {
         PageBuilder page = new PageBuilder();
