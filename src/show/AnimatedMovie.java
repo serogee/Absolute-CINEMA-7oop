@@ -11,7 +11,8 @@ public class AnimatedMovie extends Show {
         this.studio = studio;
     }
 
-    public String getStudio() { return studio; }
+    public String getStudio() { return this.studio; }
+    public void setStudio(String studio) { this.studio = studio; }
 
     @Override
     public String getShowTypeAsString() {

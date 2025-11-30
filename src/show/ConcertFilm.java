@@ -11,7 +11,8 @@ public class ConcertFilm extends Show {
         this.artist = artist;
     }
 
-    public String getArtist() { return artist; }
+    public String getArtist() { return this.artist; }
+    public void setArtist(String artistName) { this.artist = artistName; }
 
     @Override
     public String getShowTypeAsString() {
