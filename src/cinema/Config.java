@@ -36,5 +36,5 @@ public class Config {
     
     public static String HUD_DISPLAY = LOGO;
 
-    public static String HEADER_DISPLAY = "Project by Group 7oop for CS 211, CS-2105";
+    public static String HEADER_DISPLAY = PageBuilder.formatStringToCenter("Project by Group 7oop for CS 211, CS-2105");
 }
