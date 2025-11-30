@@ -54,8 +54,13 @@ public class Cinema {
             // Determine which page to display based on history
             if (this.history.isEmpty()) {
                 result = this.mainMenuPages.mainPage();
+
             } else {
                 switch (this.history.peek()) {
+                    case PageType.LOAD_DEMO_DATA:
+                        result = DemoPages.mainPage(this);
+                        break;
+
                     // Manage Screenings
                     case PageType.MAIN_MANAGE_SCREENINGS:
                         result = this.mainScreeningPages.mainPage();

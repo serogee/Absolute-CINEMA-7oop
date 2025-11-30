@@ -35,5 +35,6 @@ public enum PageType {
             ADD_SHOW_MOVIE,
             ADD_SHOW_ANIMATED_MOVIE,
             ADD_SHOW_CONCERT_FILM,
-        DELETE_SHOW;
+        DELETE_SHOW,
+    LOAD_DEMO_DATA;
 }

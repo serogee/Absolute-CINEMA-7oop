@@ -20,6 +20,7 @@ class MainMenuPages {
         page.addOption(new Option(PageType.MAIN_SHOW_EDITOR, "Manage Shows"));
         page.addOption(new Option(PageType.MAIN_MANAGE_SCREENINGS, "Manage Screenings"));
         page.addOption(new Option(PageType.MAIN_THEATER_EDITOR, "Manage Theaters"));
+        page.addOption(new Option(PageType.LOAD_DEMO_DATA, "Load Demo Data"));
         page.addCustomOption(new CustomOption(PageResult.Navigation.BACK_TO_EXIT, "Quit", "Q"));
 
         PageResult result = null;

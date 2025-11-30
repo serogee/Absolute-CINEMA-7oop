@@ -342,9 +342,7 @@ public class PageBuilder {
         }
 
         if (this.enterOption != null) {
-            if (string.equalsIgnoreCase("ENTER") || string.isEmpty()) {
-                return this.enterOption.getPageResult();
-            }
+            return this.enterOption.getPageResult();
         }
 
         return null;
