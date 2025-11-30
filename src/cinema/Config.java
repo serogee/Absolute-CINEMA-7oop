@@ -26,11 +26,11 @@ public class Config {
 
     public static CustomOption NAVIGATE_TO_PREVIOUS = new CustomOption(PageResult.Navigation.BACK_TO_PREVIOUS, "Return", "R");
 
-    public static CustomOption NAVIGATE_TO_MAIN_SCREENING = new CustomOption(PageResult.Navigation.BACK_TO_MAIN, "Return to Screening Management", "E");
+    public static CustomOption NAVIGATE_TO_MAIN_SCREENING = new CustomOption(PageResult.Navigation.BACK_TO_MAIN, "Screening Management", "E");
 
-    public static CustomOption NAVIGATE_TO_MAIN_SHOW = new CustomOption(PageResult.Navigation.BACK_TO_MAIN, "Return to Show Management", "E");
+    public static CustomOption NAVIGATE_TO_MAIN_SHOW = new CustomOption(PageResult.Navigation.BACK_TO_MAIN, "Show Management", "E");
 
-    public static CustomOption NAVIGATE_TO_MAIN_THEATER = new CustomOption(PageResult.Navigation.BACK_TO_MAIN, "Return to Theater Management", "E");
+    public static CustomOption NAVIGATE_TO_MAIN_THEATER = new CustomOption(PageResult.Navigation.BACK_TO_MAIN, "Theater Management", "E");
 
     public static CustomOption NAVIGATE_TO_START = new CustomOption(PageResult.Navigation.BACK_TO_START, "Main Menu", "M");
     

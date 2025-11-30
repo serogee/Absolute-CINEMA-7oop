@@ -23,9 +23,9 @@ public class ConcertFilm extends Show {
     public ArrayList<String> getLongInfo() {
         java.util.ArrayList<String> info = new java.util.ArrayList<>();
         info.add(this.getShowTypeAsString() + " Title: " + this.toString());
-        info.add("Description: " + this.getDescription());
-        info.add("Artist: " + this.getArtist());
-        info.add(String.format("Duration: %d:%d", this.getDuration().toHours(), this.getDuration().toMinutesPart()));
+        info.add(" - Description: " + this.getDescription());
+        info.add(" - Artist: " + this.getArtist());
+        info.add(String.format(" - Duration: %d:%d", this.getDuration().toHours(), this.getDuration().toMinutesPart()));
         return info;
     }
 }
