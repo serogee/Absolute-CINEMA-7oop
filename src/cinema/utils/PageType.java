@@ -26,15 +26,14 @@ public enum PageType {
                 EDIT_ANIMATED_MOVIE_ANIMATION_STUDIO,
             MANAGE_SHOW_CONCERT_FILM,
                 EDIT_CONCERT_FILM_ARTIST,
-                
+
                 EDIT_SHOW_TITLE,
                 EDIT_SHOW_DESCRIPTION,
                 EDIT_SHOW_RELEASE_YEAR,
                 EDIT_SHOW_DURATION,
         ADD_SHOW,
-            SELECT_SHOW_TYPE,
-                ADD_SHOW_MOVIE,
-                ADD_SHOW_ANIMATED_MOVIE,
-                ADD_SHOW_CONCERT_FILM,
+            ADD_SHOW_MOVIE,
+            ADD_SHOW_ANIMATED_MOVIE,
+            ADD_SHOW_CONCERT_FILM,
         DELETE_SHOW;
 }

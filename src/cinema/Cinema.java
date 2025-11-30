@@ -78,6 +78,9 @@ public class Cinema {
                     case PageType.EDIT_SCREENING_THEATER:
                         result = this.mainScreeningPages.editScreeningTheaterPage();
                         break;
+                    case PageType.EDIT_SCREENING_EXPERIENCE_TYPE:
+                        result = this.mainScreeningPages.editScreeningExperienceTypePage();
+                        break;
                     
                     case PageType.ADD_SCREENING:
                         result = this.mainScreeningPages.addScreeningPage();
