@@ -22,7 +22,7 @@ public class Movie extends Show {
     @Override
     public ArrayList<String> getLongInfo() {
         ArrayList<String> info = new ArrayList<>();
-        info.add(this.getShowTypeAsString() + "Title: " + this.toString());
+        info.add(this.getShowTypeAsString() + " Title: " + this.toString());
         info.add("Description: " + this.getDescription());
         info.add("Lead Actor: " + this.getDescription());
         info.add(String.format("Duration: %d:%d", this.getDuration().toHours(), this.getDuration().toMinutesPart()));
