@@ -252,6 +252,24 @@ class MainScreeningPages {
         return page.nextOptionResultInputLoop("Input Option");
     }
 
+    public PageResult.Char inputColumn(PageBuilder page) {
+        return page.nextColumnInputLoop(
+            "Input Column",
+            'A',
+            (char) ('A' + this.workingScreening.getTheater().getColumnLength() - 1),
+            "Please select a valid column between A and " + (char) (this.workingScreening.getTheater().getColumnLength() + 'A' - 1) + "!"
+        );
+    }
+
+    public PageResult.Int inputRow(PageBuilder page) {
+        return page.nextIntResultInputLoop(
+            "Input Row",
+            1,
+            this.workingScreening.getTheater().getRowLength(),
+            "Please select a valid row number between " + 1 + " and " + this.workingScreening.getTheater().getRowLength() + "!"
+        );
+    }
+
     public PageResult addSeatReservationPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -266,23 +284,13 @@ class MainScreeningPages {
 
         while (true) {
 
-            PageResult.Char columnCharInput = page.nextColumnInputLoop(
-                "Input Column: ",
-                'A',
-                (char) ('A' + this.workingScreening.getTheater().getColumnLength() - 1),
-                "Please select a valid column between A and " + (this.workingScreening.getTheater().getColumnLength() + 'A' - 1) + "!"
-            );
+            PageResult.Char columnCharInput = this.inputColumn(page);
             if (columnCharInput.getPageResult() != null) {
                 return columnCharInput.getPageResult();
             }
             page.addPromptInput(columnCharInput);
             
-            PageResult.Int rowIntInput = page.nextIntResultInputLoop(
-                "Input Row: ",
-                1,
-                this.workingScreening.getTheater().getRowLength(),
-                "Please select a valid row number between " + 1 + " and " + this.workingScreening.getTheater().getRowLength() + "!"
-            );
+            PageResult.Int rowIntInput = inputRow(page);
             if (rowIntInput.getPageResult() != null) {
                 return rowIntInput.getPageResult();
             }
@@ -312,23 +320,13 @@ class MainScreeningPages {
 
         while (true) {
 
-            PageResult.Char columnCharInput = page.nextColumnInputLoop(
-                "Input Column: ",
-                'A',
-                (char) ('A' + this.workingScreening.getTheater().getColumnLength() - 1),
-                "Please select a valid column between A and " + (this.workingScreening.getTheater().getColumnLength() + 'A' - 1) + "!"
-            );
+            PageResult.Char columnCharInput = this.inputColumn(page);
             if (columnCharInput.getPageResult() != null) {
                 return columnCharInput.getPageResult();
             }
             page.addPromptInput(columnCharInput);
 
-            PageResult.Int rowIntInput = page.nextIntResultInputLoop(
-                "Input Row: ",
-                1,
-                this.workingScreening.getTheater().getRowLength(),
-                "Please select a valid row number between " + 1 + " and " + this.workingScreening.getTheater().getRowLength() + "!"
-            );
+            PageResult.Int rowIntInput = this.inputRow(page);
             if (rowIntInput.getPageResult() != null) {
                 return rowIntInput.getPageResult();
             }
