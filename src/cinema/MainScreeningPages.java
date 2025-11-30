@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import cinema.utils.CustomOption;
+import cinema.utils.Option;
 import cinema.utils.PageBuilder;
 import cinema.utils.PageResult;
 import cinema.utils.PageType;
@@ -222,12 +223,12 @@ class MainScreeningPages {
         bodyLines.add("");
 
         page.setBody(PageBuilder.formatAsBody(bodyLines));
-        page.addCustomOption(new CustomOption(PageType.SHOW_SCREENING_SEAT_LAYOUT, "Show Seat Reservation Layout", "S"));
-        page.addCustomOption(new CustomOption(PageType.ADD_RESERVATION, "Add Seat Reservation", "A"));
-        page.addCustomOption(new CustomOption(PageType.DELETE_RESERVATION, "Delete Seat Reservation", "D"));
-        page.addCustomOption(new CustomOption(PageType.EDIT_SCREENING_SHOW, "Edit Show", "F"));
-        page.addCustomOption(new CustomOption(PageType.EDIT_SCREENING_THEATER, "Edit Theater", "G"));
-        page.addCustomOption(new CustomOption(PageType.EDIT_SCREENING_EXPERIENCE_TYPE, "Edit Experience Type", "H"));
+        page.addOption(new Option(PageType.SHOW_SCREENING_SEAT_LAYOUT, "Show Seat Reservation Layout"));
+        page.addOption(new Option(PageType.ADD_RESERVATION, "Add Seat Reservation"));
+        page.addOption(new Option(PageType.DELETE_RESERVATION, "Delete Seat Reservation"));
+        page.addOption(new Option(PageType.EDIT_SCREENING_SHOW, "Edit Show"));
+        page.addOption(new Option(PageType.EDIT_SCREENING_THEATER, "Edit Theater"));
+        page.addOption(new Option(PageType.EDIT_SCREENING_EXPERIENCE_TYPE, "Edit Experience Type"));
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
         page.addCustomOption(Config.NAVIGATE_TO_START);
 

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import cinema.utils.CustomOption;
+import cinema.utils.Option;
 import cinema.utils.PageBuilder;
 import cinema.utils.PageResult;
 import cinema.utils.PageType;
@@ -159,14 +160,14 @@ class MainTheaterPages {
         page.setBody(PageBuilder.formatAsBody(bodyLines));
 
         if (screening != null) {
-            page.addCustomOption(new CustomOption(PageType.SET_CURRENT_SCREENING, "End Current Screening", "A"));
+            page.addOption(new Option(PageType.SET_CURRENT_SCREENING, "End Current Screening"));
         } else {
-            page.addCustomOption(new CustomOption(PageType.SET_CURRENT_SCREENING, "Start Screening", "A"));
+            page.addOption(new Option(PageType.SET_CURRENT_SCREENING, "Start Screening"));
         }
 
-        page.addCustomOption(new CustomOption(PageType.SHOW_THEATER_SEAT_LAYOUT, "Show Seat Layout", "S"));
-        page.addCustomOption(new CustomOption(PageType.EDIT_THEATER_DIMENSIONS, "Edit Theater Dimensions", "D"));
-        page.addCustomOption(new CustomOption(PageType.EDIT_THEATER_NAME, "Edit Theater Name", "F"));
+        page.addOption(new Option(PageType.SHOW_THEATER_SEAT_LAYOUT, "Show Seat Layout"));
+        page.addOption(new Option(PageType.EDIT_THEATER_DIMENSIONS, "Edit Theater Dimensions"));
+        page.addOption(new Option(PageType.EDIT_THEATER_NAME, "Edit Theater Name"));
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
         page.addCustomOption(Config.NAVIGATE_TO_START);
 
