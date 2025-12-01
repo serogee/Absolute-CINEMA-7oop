@@ -1,4 +1,4 @@
-package screening.utils;
+package screening;
 
 public enum ExperienceType {
     STANDARD_2D("Standard 2D"),
