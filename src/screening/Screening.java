@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import screening.utils.ExperienceType;
 import show.Show;
 import theater.Theater;
 import seat.SeatConflictException;
