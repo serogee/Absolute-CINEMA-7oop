@@ -18,7 +18,7 @@ public class Cinema {
     // Data Models
     private List<Show> shows;
     private List<Screening> screenings;
-    private List<Theater> theathers;
+    private List<Theater> theaters;
 
     // Page Controllers
     private MainMenuPages mainMenuPages;
@@ -31,7 +31,7 @@ public class Cinema {
         this.history = new ArrayDeque<>();
         this.shows = new ArrayList<>();
         this.screenings = new ArrayList<>();
-        this.theathers = new ArrayList<>();
+        this.theaters = new ArrayList<>();
 
         // Initialize Main Menu
         this.mainMenuPages = new MainMenuPages();
@@ -45,7 +45,7 @@ public class Cinema {
     // Accessors for Controllers
     public List<Show> getShows() { return shows; }
     public List<Screening> getScreenings() { return screenings; }
-    public List<Theater> getTheathers() { return theathers; }
+    public List<Theater> getTheaters() { return theaters; }
 
     public void start() {
         PageResult result;

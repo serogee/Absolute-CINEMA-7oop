@@ -6,8 +6,12 @@ import java.util.List;
 import cinema.utils.Option;
 import cinema.utils.PageBuilder;
 import cinema.utils.PageResult;
+
 import show.Movie;
 import show.Show;
+import show.AnimatedMovie;
+import show.ConcertFilm;
+
 import theater.Theater;
 
 public class DemoPages {
@@ -15,7 +19,7 @@ public class DemoPages {
     public static PageResult mainPage(Cinema cinema) {
 
         List<Show> shows = cinema.getShows();
-        List<Theater> theaters = cinema.getTheathers();
+        List<Theater> theaters = cinema.getTheaters(); // corrected spelling if needed
 
         // Movies
         shows.add(new Movie(
@@ -61,68 +65,68 @@ public class DemoPages {
         
         // Animated Movies
 
-        shows.add(new Movie(
+        shows.add(new AnimatedMovie(
             "Spirited Away",
-            "During her family's move to the suburbs, a sullen ten-year-old girl wanders into a world ruled by gods, witches, and spirits, and where humans are changed into beasts.",
+            "During her family's move to the suburbs, a sullen ten-year-old girl wanders into a world ruled by gods, witches, and spirits, where humans are changed into beasts.",
             2001,
-            "Rumi Hiiragi, Miyu Irino",
+            "Studio Ghibli",
             Duration.ofMinutes(125)
         ));
 
-        shows.add(new Movie(
+        shows.add(new AnimatedMovie(
             "Grave of the Fireflies",
-            "Set in the city of Kobe during World War II, the film tells the story of siblings and war orphans Seita and Setsuko as they struggle to survive in the aftermath of the firebombing of their hometown.",
+            "Set in Kobe during World War II, the film follows siblings Seita and Setsuko as they struggle to survive after the firebombing of their hometown.",
             1988,
-            "Tsutomu Tatsumi, Ayano Shiraishi",
+            "Studio Ghibli",
             Duration.ofMinutes(89)
         ));
 
-        shows.add(new Movie(
+        shows.add(new AnimatedMovie(
             "KPop Demon Hunters",
-            "A K-pop girl group, Huntrix, who lead double lives as demon hunters; they face off against a rival boy band, the Saja Boys, whose members are secretly demons.",
+            "A K-pop girl group, Huntrix, who lead double lives as demon hunters, face off against a rival boy band whose members are secretly demons.",
             2025,
-            "Arden Cho, Ahn Hyo-seop, May Hong, Ji-young Yoo, Yunjin Kim, Daniel Dae Kim, Ken Jeong, Lee Byung-hun",
+            "Sony Pictures Imageworks",
             Duration.ofMinutes(95)
         ));
 
-        shows.add(new Movie(
-            "Holws Moving Castle",
-            "It tells the story of Sophie, a young milliner who is turned into an elderly woman by a witch who enters her shop and curses her.",
+        shows.add(new AnimatedMovie(
+            "Howl's Moving Castle",
+            "The story of Sophie, a young woman cursed by a witch and turned into an elderly lady, who seeks refuge in a wizard's magical moving castle.",
             2004,
-            "Chieko Baisho, Takuya Kimura",
+            "Studio Ghibli",
             Duration.ofMinutes(119)
         ));
 
-        shows.add(new Movie(
+        shows.add(new AnimatedMovie(
             "How to Train Your Dragon",
-            "Hiccup, an undersized teen outcast and son of the village chieftain, wishing to become a dragon slayer like the other vikings, injures a rare Night Fury dragon and instead befriends it.",
+            "Hiccup, an undersized Viking teen, injures a rare Night Fury dragon but ends up befriending it, changing the future of his village.",
             2010,
-            "Jay Baruchel, Gerard Butler, Craig Ferguson",
-            Duration.ofMinutes(98
+            "DreamWorks Animation",
+            Duration.ofMinutes(98)
         ));
         
 
         // Concert Films
 
-        shows.add(new Movie(
+        shows.add(new ConcertFilm(
             "Taylor Swift: The Eras Tour",
-            "A concert film documenting Taylor Swift's sixth headlining concert tour, The Eras Tour, which celebrates all of her musical eras.",
+            "A concert film documenting Taylor Swift's worldwide Eras Tour, highlighting performances across all her musical eras.",
             2023,
             "Taylor Swift",
             Duration.ofMinutes(169)
         ));
 
-        shows.add(new Movie(
+        shows.add(new ConcertFilm(
             "Ariana Grande: Excuse Me, I Love You",
-            "A concert film featuring performances from Ariana Grande's Sweetener World Tour, showcasing her vocal prowess and stage presence.",
+            "A concert film featuring performances from Ariana Grande's Sweetener World Tour, showcasing her vocals and stage presence.",
             2020,
             "Ariana Grande",
             Duration.ofMinutes(97)
         ));
         
-        Shows.add(new Movie(
+        shows.add(new ConcertFilm(
             "A Night at the Symphony: Hollywood Bowl",
-            "A concert film from Icelandic singer-songwriter Laufey's Bewitched Tour August 7 show at the Hollywood Bowl featuring performances by the Los Angeles Philharmonic, showcasing music from popular films.",
+            "A concert film from Laufey's Bewitched Tour at the Hollywood Bowl, featuring performances with the Los Angeles Philharmonic.",
             2024,
             "Laufey",
             Duration.ofMinutes(100)
