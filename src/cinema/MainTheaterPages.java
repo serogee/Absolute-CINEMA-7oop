@@ -31,8 +31,8 @@ class MainTheaterPages {
         page.setHeader(Config.HEADER_DISPLAY);
         page.setTitle("Theater Management");
 
-        for (int i = 0; i < this.cinema.getTheathers().size(); i++) {
-            Theater theater = this.cinema.getTheathers().get(i);
+        for (int i = 0; i < this.cinema.getTheaters().size(); i++) {
+            Theater theater = this.cinema.getTheaters().get(i);
             page.addDisplayOption(String.format("[%d] %s (%d rows, %d columns)", i + 1, theater.getName(), theater.getRowLength(), theater.getColumnLength()));
         }
 
@@ -43,13 +43,13 @@ class MainTheaterPages {
         PageResult.Int intInput = page.nextIntResultInputLoop(
             "Input Option",
             1,
-            this.cinema.getTheathers().size(),
+            this.cinema.getTheaters().size(),
             "Please select a valid theater number!"
         );
         if (intInput.getPageResult() != null) {
             return intInput.getPageResult();
         }
-        this.workingTheater = this.cinema.getTheathers().get(intInput.getValue() - 1);
+        this.workingTheater = this.cinema.getTheaters().get(intInput.getValue() - 1);
         return PageResult.createResultNextPage(PageType.MANAGE_THEATER);
     }
 
@@ -96,7 +96,7 @@ class MainTheaterPages {
         }
         
         Theater newTheater = new Theater(strInput.getValue(), rowLength.getValue(), columnLength.getValue());
-        this.cinema.getTheathers().add(newTheater);
+        this.cinema.getTheaters().add(newTheater);
 
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
@@ -109,8 +109,8 @@ class MainTheaterPages {
         page.setSubTitle("Delete Theater");
         page.setBody(PageBuilder.formatAsBody("    This will permanently delete the selected theater from the system, including all associated screenings!"));;
 
-        for (int i = 0; i < this.cinema.getTheathers().size(); i++) {
-            Theater theater = this.cinema.getTheathers().get(i);
+        for (int i = 0; i < this.cinema.getTheaters().size(); i++) {
+            Theater theater = this.cinema.getTheaters().get(i);
             page.addDisplayOption("[" + (i + 1) + "] Theater: " + theater.getName() + " | Seats: " + (theater.getRowLength() * theater.getColumnLength()));
         }
 
@@ -120,7 +120,7 @@ class MainTheaterPages {
         PageResult.Int intInput = page.nextIntResultInputLoop(
             "Input Option",
             1,
-            this.cinema.getTheathers().size(),
+            this.cinema.getTheaters().size(),
             "Please select a valid theater number!"
         );
         if (intInput.getPageResult() != null) {
@@ -129,11 +129,11 @@ class MainTheaterPages {
 
         int indexToDelete = intInput.getValue() - 1;
         for (Screening screening : this.cinema.getScreenings()) {
-            if (screening.getTheater() == this.cinema.getTheathers().get(indexToDelete)) {
+            if (screening.getTheater() == this.cinema.getTheaters().get(indexToDelete)) {
                 this.cinema.getScreenings().remove(screening);
             }
         }
-        this.cinema.getTheathers().remove(indexToDelete);
+        this.cinema.getTheaters().remove(indexToDelete);
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
 

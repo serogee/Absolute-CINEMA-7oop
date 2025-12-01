@@ -82,12 +82,12 @@ class MainScreeningPages {
         page.setTitle("Manage Screenings");
         page.setSubTitle("Add Screening");
 
-        if (this.cinema.getTheathers().isEmpty()) {
+        if (this.cinema.getTheaters().isEmpty()) {
             page.setErrorMessage("No theater found! Please create one first.");
         }
 
-        for (int i = 0; i < this.cinema.getTheathers().size(); i++) {
-            Theater theater = this.cinema.getTheathers().get(i);
+        for (int i = 0; i < this.cinema.getTheaters().size(); i++) {
+            Theater theater = this.cinema.getTheaters().get(i);
             page.addDisplayOption(String.format("[%d] %s (%d rows, %d columns)", i + 1, theater.getName(), theater.getRowLength(), theater.getColumnLength()));
         }
 
@@ -98,13 +98,13 @@ class MainScreeningPages {
         PageResult.Int theaterIntInput = page.nextIntResultInputLoop(
             "Select Theater",
             1,
-            this.cinema.getTheathers().size(),
+            this.cinema.getTheaters().size(),
             "Please select a valid theater number!"
         );
         if (theaterIntInput.getPageResult() != null) {
             return theaterIntInput.getPageResult();
         } 
-        selectedTheater = this.cinema.getTheathers().get(theaterIntInput.getValue() - 1);
+        selectedTheater = this.cinema.getTheaters().get(theaterIntInput.getValue() - 1);
         page.addPromptInput(theaterIntInput);
 
         if (this.cinema.getShows().isEmpty()) {
@@ -376,8 +376,8 @@ class MainScreeningPages {
         page.setTitle("Screening Management");
         page.setSubTitle("Edit Theater: " + this.workingScreening.getShow().toString() + " | " + this.workingScreening.getTheater().getName());
 
-        for (int i = 0; i < this.cinema.getTheathers().size(); i++) {
-            Theater theater = this.cinema.getTheathers().get(i);
+        for (int i = 0; i < this.cinema.getTheaters().size(); i++) {
+            Theater theater = this.cinema.getTheaters().get(i);
             page.addDisplayOption(String.format("[%d] %s (%d rows, %d columns)", i + 1, theater.getName(), theater.getRowLength(), theater.getColumnLength()));
         }
         page.addCustomOption(Config.NAVIGATE_TO_PREVIOUS);
@@ -387,13 +387,13 @@ class MainScreeningPages {
         PageResult.Int theaterIntInput = page.nextIntResultInputLoop(
             "Select Theater",
             1,
-            this.cinema.getTheathers().size(),
+            this.cinema.getTheaters().size(),
             "Please select a valid theater number!"
         );
         if (theaterIntInput.getPageResult() != null) {
             return theaterIntInput.getPageResult();
         } 
-        this.workingScreening.setTheater(this.cinema.getTheathers().get(theaterIntInput.getValue() - 1));;
+        this.workingScreening.setTheater(this.cinema.getTheaters().get(theaterIntInput.getValue() - 1));;
 
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
