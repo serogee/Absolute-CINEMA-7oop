@@ -142,3 +142,16 @@ java App
 -   Perez, Kim Jimuel A.
 
 ## .˳˚✦ 7. Acknowledgement
+
+We like to convey our profound gratitude to our adviser, Fatima Marie P. Agdon, for her direction, support, and insightful input during the project's development. Her knowledge significantly aided us in developing a system that adheres to real-world programming standards and object-oriented programming concepts.
+
+Gratitude is extended to all project members for their collaboration and dedication in developing this Project ABSOLUTE CINEMA, which emulates authentic cinema operations such as:
+
+- Managing shows (Movies, Animated Movies, Concert Films)
+- Managing theaters
+- Managing screenings
+- Reserving seats with validation and conflict detection
+- Viewing all available and reserved seats
+- Navigating through a structured menu with reusable page handling
+
+This project was made possible through collaboration, dedication, and continuous improvement from the entire team.
