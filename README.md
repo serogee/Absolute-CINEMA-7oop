@@ -8,11 +8,11 @@
 /_/   \_\_.__/|___/\___/|_|\__,_|\__\___|   ▀███████ ▄███▄ ███    ███ ▀███████ ███      ███ ███  ███
 ```
 
-## 1. Overview
+## .˳˚✦ 1. Overview
 
-## 2. OOP Concepts
+## .˳˚✦ 2. OOP Concepts
 
-## 3. Program Structure
+## .˳˚✦ 3. Program Structure
 
 ```
 📦
@@ -21,22 +21,22 @@
    ├─ App.java                      ˚.✦.˳˖✶ Main
    │
    ├─ screening                 — Handles screening
-   │  ├─ Screening.java             ˚.✦.˳˖✶ Class representing a screening
-   │  └─ ExperienceType.java        ˚.✦.˳˖✶ Different screening experiences
+   │  ├─ 📽️ Screening.java             ˚.✦.˳˖✶ Class representing a screening
+   │  └─ 🎦 ExperienceType.java        ˚.✦.˳˖✶ Different screening experiences
    │
    ├─ seat                      — Handles seat
-   │  ├─ Seat.java                  ˚.✦.˳˖✶ Class representing a theater seat
-   │  ├─ InvalidSeatException.java  ˚.✦.˳˖✶ Custom Exception for Invalid Seat
-   │  └─ SeatConflictException.java ˚.✦.˳˖✶ Custom Exception for Seat Availability
+   │  ├─ 💺 Seat.java                  ˚.✦.˳˖✶ Class representing a theater seat
+   │  ├─ ❗ InvalidSeatException.java  ˚.✦.˳˖✶ Custom Exception for Invalid Seat
+   │  └─ ❕ SeatConflictException.java ˚.✦.˳˖✶ Custom Exception for Seat Availability
    │
    ├─ show                      — Handles show
-   │  ├─ AnimatedMovie.java         ˚.✦.˳˖✶ Child class of Show representing a animated movie
-   │  ├─ ConcertFilm.java           ˚.✦.˳˖✶ Child class of Show representing a concert film
-   │  ├─ Movie.java                 ˚.✦.˳˖✶ Child class of Show representing a movie
-   │  └─ Show.java                  ˚.✦.˳˖✶ Abstract class blueprint for shows
+   │  ├─ 🎞️ AnimatedMovie.java         ˚.✦.˳˖✶ Child class of Show representing a animated movie
+   │  ├─ 🎤 ConcertFilm.java           ˚.✦.˳˖✶ Child class of Show representing a concert film
+   │  ├─ 🎬 Movie.java                 ˚.✦.˳˖✶ Child class of Show representing a movie
+   │  └─ ▶️ Show.java                  ˚.✦.˳˖✶ Abstract class blueprint for shows
    │
    └─ theater                   — Handles theater
-      └─ Theater.java               ˚.✦.˳˖✶ Class representing a theater
+      └─ 🖥️ Theater.java               ˚.✦.˳˖✶ Class representing a theater
 ```
 
 ```
@@ -44,26 +44,26 @@
 ├─ .gitignore
 └─ src
    └─ cinema                    — Main driver
-      ├─ Cinema.java                ˚.✦.˳˖✶ Page routing and flow
-      ├─ Config.java                ˚.✦.˳˖✶ Configurations for display
-      ├─ DemoPages.java             ˚.✦.˳˖✶ Load Demo
-      ├─ MainMenuPages.java         ˚.✦.˳˖✶ Main Menu Pages
-      ├─ MainScreeningPages.java    ˚.✦.˳˖✶ Manage Screening Pages
-      ├─ MainShowPages.java         ˚.✦.˳˖✶ Manage Show Pages
-      ├─ MainTheaterPages.java      ˚.✦.˳˖✶ Manage Theater Pages
+      ├─ 🎥 Cinema.java                ˚.✦.˳˖✶ Page routing and flow
+      ├─ 🛠️ Config.java                ˚.✦.˳˖✶ Configurations for display
+      ├─ 🩶 DemoPages.java             ˚.✦.˳˖✶ Load Demo
+      ├─ 🤍 MainMenuPages.java         ˚.✦.˳˖✶ Main Menu Pages
+      ├─ ❤️ MainScreeningPages.java    ˚.✦.˳˖✶ Manage Screening Pages
+      ├─ 💚 MainShowPages.java         ˚.✦.˳˖✶ Manage Show Pages
+      ├─ 💙 MainTheaterPages.java      ˚.✦.˳˖✶ Manage Theater Pages
       │
       └─ utils                  — Utility classes and enums
-         ├─ CustomOption.java       ˚.✦.˳˖✶ Non-numbered option in pages
-         ├─ Option.java             ˚.✦.˳˖✶ Numbered option in pages
-         ├─ PageBuilder.java        ˚.✦.˳˖✶ Page display and input
-         ├─ PageResult.java         ˚.✦.˳˖✶ Return type of all pages and inputs
-         └─ PageType.java           ˚.✦.˳˖✶ Available Pages
+         ├─ ⚙️ CustomOption.java       ˚.✦.˳˖✶ Non-numbered option in pages
+         ├─ ⚙️ Option.java             ˚.✦.˳˖✶ Numbered option in pages
+         ├─ 🔨 PageBuilder.java        ˚.✦.˳˖✶ Page display and input
+         ├─ 📁 PageResult.java         ˚.✦.˳˖✶ Return type of all pages and inputs
+         └─ 📄 PageType.java           ˚.✦.˳˖✶ Available Pages
 ```
 
-## 4. How to Run the Program
+## .˳˚✦ 4. How to Run the Program
 
-## 5. Sample Output
+## .˳˚✦ 5. Sample Output
 
-## 6. Authors
+## .˳˚✦ 6. Authors
 
-## 7. Acknowledgement
+## .˳˚✦ 7. Acknowledgement
