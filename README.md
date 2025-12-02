@@ -137,4 +137,8 @@ java App
 
 ## .˳˚✦ 6. Authors
 
+-   Estrada, Aubrey Nicole P.
+-   Plaza, Geevoi A.
+-   Perez, Kim Jimuel A.
+
 ## .˳˚✦ 7. Acknowledgement
