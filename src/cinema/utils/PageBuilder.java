@@ -303,30 +303,6 @@ public class PageBuilder {
         return input;
     }
 
-    public PageResult.Char nextColumnInputLoop(String prompt, char min, char max, String outOfBoundsErrorMessage) {
-        PageResult.Char input;
-
-        while (true) {
-            try {
-                this.display();
-                input = this.nextColumn(prompt);
-
-                if (input.getPageResult() != null)
-                    return input;
-     
-                char value = input.getValue();
-                if (value < min || value > max) {
-                    this.setErrorMessage(outOfBoundsErrorMessage);
-                    continue;
-                }
-                break;
-            } catch (InputMismatchException e) {
-                this.setErrorMessage("Please enter a valid option!");
-            }
-        }
-        return input;
-    }
-
     public PageResult processOptionResult(String string) {
 
         for (CustomOption customOption : this.customOptions) {
@@ -374,26 +350,6 @@ public class PageBuilder {
             result = new PageResult.Str(input, prompt);
         } else {
             result = new PageResult.Str(pageResult, prompt);
-        }
-
-        return result;
-    }
-
-    public PageResult.Char nextColumn(String prompt) throws InputMismatchException {
-        PageResult.Char result;
-
-        System.out.print(String.format("  >> %s: ", prompt));
-        String input = PageBuilder.scanner.nextLine().trim();
-
-        PageResult pageResult = this.processOptionResult(input);
-
-        if (pageResult == null) {
-            if (input.isEmpty()) {
-                throw new InputMismatchException("Invalid character: '" + input + "' could not be resolved to a valid character.");
-            }
-            result = new PageResult.Char(Character.toUpperCase(input.charAt(0)), prompt);
-        } else {
-            result = new PageResult.Char(pageResult, prompt);
         }
 
         return result;

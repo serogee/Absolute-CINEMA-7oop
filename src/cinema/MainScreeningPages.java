@@ -3,6 +3,8 @@ package cinema;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cinema.utils.CustomOption;
 import cinema.utils.Option;
@@ -252,24 +254,7 @@ class MainScreeningPages {
         return page.nextOptionResultInputLoop("Input Option");
     }
 
-    public PageResult.Char inputColumn(PageBuilder page) {
-        return page.nextColumnInputLoop(
-            "Input Column",
-            'A',
-            (char) ('A' + this.workingScreening.getTheater().getColumnLength() - 1),
-            "Please select a valid column between A and " + (char) (this.workingScreening.getTheater().getColumnLength() + 'A' - 1) + "!"
-        );
-    }
-
-    public PageResult.Int inputRow(PageBuilder page) {
-        return page.nextIntResultInputLoop(
-            "Input Row",
-            1,
-            this.workingScreening.getTheater().getRowLength(),
-            "Please select a valid row number between " + 1 + " and " + this.workingScreening.getTheater().getRowLength() + "!"
-        );
-    }
-
+    private static Pattern columnRowPattern = Pattern.compile("([a-zA-Z])(\\d+)");
     public PageResult addSeatReservationPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -283,25 +268,26 @@ class MainScreeningPages {
         page.setBody(getReservationLayout());
 
         while (true) {
+            page.display();
 
-            PageResult.Char columnCharInput = this.inputColumn(page);
-            if (columnCharInput.getPageResult() != null) {
-                return columnCharInput.getPageResult();
-            }
-            page.addPromptInput(columnCharInput);
-            
-            PageResult.Int rowIntInput = inputRow(page);
-            if (rowIntInput.getPageResult() != null) {
-                return rowIntInput.getPageResult();
+            PageResult.Str columnRowInput = page.nextLine("Input Column and Row (e.g. A10)");
+
+            if (columnRowInput.getPageResult() != null) {
+                return columnRowInput.getPageResult();
             }
 
-            try {
-                this.workingScreening.createSeatReservation(rowIntInput.getValue(), columnCharInput.getValue());
-                return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
-            } catch (SeatConflictException e1) {
-                page.setErrorMessage("'" + rowIntInput.getValue() + columnCharInput.getValue() + "'' is already reserved!");
-            } catch (InvalidSeatException e2) {
-                page.setErrorMessage("'" + rowIntInput.getValue() + columnCharInput.getValue() + "'' is not a valid seat!");
+            Matcher match = MainScreeningPages.columnRowPattern.matcher(columnRowInput.getValue());
+            if (match.find()) {
+                try {
+                    this.workingScreening.createSeatReservation(Integer.parseInt(match.group(2)), Character.toUpperCase(match.group(1).charAt(0)));
+                    return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+                } catch (SeatConflictException e1) {
+                    page.setErrorMessage("'" + match.group(1) + match.group(2) + "' is already reserved!");
+                } catch (InvalidSeatException e2) {
+                    page.setErrorMessage("'" + match.group(1) + match.group(2) + "' is not a valid seat!");
+                }
+            } else {
+                page.setErrorMessage("Invalid column and row input!");
             }
         }
     }
@@ -319,25 +305,26 @@ class MainScreeningPages {
         page.setBody(getReservationLayout());
 
         while (true) {
+            page.display();
 
-            PageResult.Char columnCharInput = this.inputColumn(page);
-            if (columnCharInput.getPageResult() != null) {
-                return columnCharInput.getPageResult();
-            }
-            page.addPromptInput(columnCharInput);
+            PageResult.Str columnRowInput = page.nextLine("Input Column and Row (e.g. A10)");
 
-            PageResult.Int rowIntInput = this.inputRow(page);
-            if (rowIntInput.getPageResult() != null) {
-                return rowIntInput.getPageResult();
+            if (columnRowInput.getPageResult() != null) {
+                return columnRowInput.getPageResult();
             }
 
-            try {
-                this.workingScreening.deleteSeatReservation(rowIntInput.getValue(), columnCharInput.getValue());
-                return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
-            } catch (SeatConflictException e1) {
-                page.setErrorMessage("'" + rowIntInput.getValue() + columnCharInput.getValue() + "'' is not reserved!");
-            } catch (InvalidSeatException e2) {
-                page.setErrorMessage("'" + rowIntInput.getValue() + columnCharInput.getValue() + "'' is not a valid seat!");
+            Matcher match = MainScreeningPages.columnRowPattern.matcher(columnRowInput.getValue());
+            if (match.find()) {
+                try {
+                    this.workingScreening.deleteSeatReservation(Integer.parseInt(match.group(2)), Character.toUpperCase(match.group(1).charAt(0)));
+                    return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
+                } catch (SeatConflictException e1) {
+                    page.setErrorMessage("'" + match.group(1) + match.group(2) + "' is not reserved!");
+                } catch (InvalidSeatException e2) {
+                    page.setErrorMessage("'" + match.group(1) + match.group(2) + "' is not a valid seat!");
+                }
+            } else {
+                page.setErrorMessage("Invalid column and row input!");
             }
         }
     }
