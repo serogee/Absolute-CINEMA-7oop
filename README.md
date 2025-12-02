@@ -10,7 +10,54 @@
 
 ## .˳˚✦ 1. Overview
 
+7oop's Absolute CINEMA is a Java-Based console application that simulates a full cinema management ecosystem.
+
+The program allows users to:
+
+-   Manage shows (Movies, Animated Movies, Concert Films)
+-   Manage theaters
+-   Manage screenings
+-   Reserve seats with validation and conflict detection
+-   View all available and reserved seats
+-   Navigate through a structured menu with reusable page handling
+
+This project emphasizes modular design and strong Object-Oriented Programming principles.
+
 ## .˳˚✦ 2. OOP Concepts
+
+### 🎯 Encapsulation
+
+-   All classes protect their fields using private or protected access.
+
+-   Updating seat layout based on new rows and columns, screening reservation, and show data are properly hidden.
+
+-   Custom exceptions (`InvalidSeatException`, `SeatConflictException`) and exception handling (`try {...} catch (...) {...}`) enforce safe access.
+
+### 🎯 Inheritance
+
+-   Class hierarchies model real-world cinema structure:
+-   Hierarchy of Show and its subclasses
+
+```
+Show (abstract)
+ ├── Movie
+ ├── AnimatedMovie
+ └── ConcertFilm
+```
+
+### 🎯 Polymorphism
+
+-   Screening accepts any `Show` subclass.
+
+-   Methods like `Show.getLongInfo()` and `Show.getShowTypeAsString()` behave differently depending on the Show type.
+
+-   `ExperienceType` defines different viewer experiences
+
+### 🎯 Abstraction
+
+-   `Show` serves as a blueprint for all types of shows.
+
+-   Page navigation is abstracted through `PageBuilder`, `Option`, and `PageResult`.
 
 ## .˳˚✦ 3. Program Structure
 
@@ -18,8 +65,6 @@
 📦
 ├─ .gitignore
 └─ src
-   ├─ App.java                      ˚.✦.˳˖✶ Main
-   │
    ├─ screening                 — Handles screening
    │  ├─ 📽️ Screening.java             ˚.✦.˳˖✶ Class representing a screening
    │  └─ 🎦 ExperienceType.java        ˚.✦.˳˖✶ Different screening experiences
@@ -39,10 +84,14 @@
       └─ 🖥️ Theater.java               ˚.✦.˳˖✶ Class representing a theater
 ```
 
+Additional program flow and menu logic:
+
 ```
 📦
 ├─ .gitignore
 └─ src
+   ├─ App.java                      ˚.✦.˳˖✶ Main
+   │
    └─ cinema                    — Main driver
       ├─ 🎥 Cinema.java                ˚.✦.˳˖✶ Page routing and flow
       ├─ 🛠️ Config.java                ˚.✦.˳˖✶ Configurations for display
@@ -61,6 +110,28 @@
 ```
 
 ## .˳˚✦ 4. How to Run the Program
+
+### Requirements:
+
+-   Java JDK 17+ (recommended)
+
+-   Any IDE (VS Code, IntelliJ, NetBeans) or terminal
+
+### Run via Terminal:
+
+```
+cd src
+javac App.java
+java App
+```
+
+### Run via VS Code
+
+-   Open folder in VS Code
+
+-   Install Java extensions
+
+-   Run App.java directly
 
 ## .˳˚✦ 5. Sample Output
 
