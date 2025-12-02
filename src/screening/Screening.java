@@ -26,7 +26,7 @@ public class Screening {
 
     // Accessors
 
-    public Set<String> getResearvedSeatIDs() { return Collections.unmodifiableSet(this.reservedSeatIDs); }
+    public Set<String> getReservedSeatIDs() { return Collections.unmodifiableSet(this.reservedSeatIDs); }
     public Theater getTheater() { return this.theater; }
     public Show getShow() { return this.show; }
     public ExperienceType getExperienceType() { return this.experienceType; }

@@ -33,7 +33,7 @@ class MainScreeningPages {
 
     public String getReservationLayout() {
         List<String> bodyLines = new ArrayList<>();
-        for (String line : Arrays.asList(this.workingScreening.getTheater().generateSeatLayoutDisplay(this.workingScreening.getResearvedSeatIDs()).split("\n"))) {
+        for (String line : Arrays.asList(this.workingScreening.getTheater().generateSeatLayoutDisplay(this.workingScreening.getReservedSeatIDs()).split("\n"))) {
             bodyLines.add(PageBuilder.formatStringToCenter(line));
         }
         return String.join("\n", bodyLines);
@@ -53,7 +53,7 @@ class MainScreeningPages {
                 i + 1, 
                 screening.getShow().toString(), 
                 screening.getTheater().getName(), 
-                screening.getResearvedSeatIDs().size(), 
+                screening.getReservedSeatIDs().size(), 
                 screening.getTheater().getRowLength() * screening.getTheater().getColumnLength(), 
                 (screening == screening.getTheater().getCurrentScreening() 
                     ? "[Currently Screening]"
@@ -183,7 +183,7 @@ class MainScreeningPages {
                 i + 1, 
                 screening.getShow().toString(), 
                 screening.getTheater().getName(), 
-                screening.getResearvedSeatIDs().size(), 
+                screening.getReservedSeatIDs().size(), 
                 screening.getTheater().getRowLength() * screening.getTheater().getColumnLength(), 
                 (screening == screening.getTheater().getCurrentScreening() 
                     ? "[Currently Screening]"
@@ -220,7 +220,7 @@ class MainScreeningPages {
         bodyLines.add("");
         bodyLines.add(PageBuilder.formatBodyToCenter("{Theater}"));
         bodyLines.add("Theater: " + this.workingScreening.getTheater().getName());
-        bodyLines.add("Reserved: " + this.workingScreening.getResearvedSeatIDs().size() + "/" + (this.workingScreening.getTheater().getRowLength() * this.workingScreening.getTheater().getColumnLength()));
+        bodyLines.add("Reserved: " + this.workingScreening.getReservedSeatIDs().size() + "/" + (this.workingScreening.getTheater().getRowLength() * this.workingScreening.getTheater().getColumnLength()));
         bodyLines.add("Currently Screening: " + (this.workingScreening == this.workingScreening.getTheater().getCurrentScreening() ? "Yes" : (this.workingScreening.getTheater().getCurrentScreening() == null ? "No" : "Theater is Busy")));
         bodyLines.add("");
 

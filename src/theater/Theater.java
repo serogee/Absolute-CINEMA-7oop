@@ -77,7 +77,7 @@ public class Theater {
         if (this.currentScreening == null) {
             return this.generateSeatLayoutDisplay(Collections.emptySet());
         }
-        return this.generateSeatLayoutDisplay(this.currentScreening.getResearvedSeatIDs());
+        return this.generateSeatLayoutDisplay(this.currentScreening.getReservedSeatIDs());
     };
 
     public String generateSeatLayoutDisplay(Set<String> reservedSeatIDs) {
