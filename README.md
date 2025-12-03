@@ -134,6 +134,171 @@ java App
 -   Run App.java directly
 
 ## .˳˚✦ 5. Sample Output
+Manage Show (Animated) Page
+```
+================================================================================
+                       _    _               _       _
+                      / \  | |__  ___  ___ | |_   _| |_ ___
+                     / _ \ | '_ \/ __|/ _ \| | | | | __/ _ \
+                    / ___ \| |_) \__ \ (_) | | |_| | ||  __/
+                   /_/   \_\_.__/|___/\___/|_|\__,_|\__\___|
+             ▄▄▄▄▄▄▄ ▄▄▄▄▄ ▄▄▄    ▄▄▄  ▄▄▄▄▄▄▄ ▄▄▄      ▄▄▄   ▄▄▄▄
+            ███▀▀▀▀▀  ███  ████▄  ███ ███▀▀▀▀▀ ████▄  ▄████ ▄██▀▀██▄
+            ███       ███  ███▀██▄███ ███▄▄    ███▀████▀███ ███  ███
+            ███       ███  ███  ▀████ ███      ███  ▀▀  ███ ███▀▀███
+            ▀███████ ▄███▄ ███    ███ ▀███████ ███      ███ ███  ███
+
+================================================================================
+                   Project by Group 7oop for CS 211, CS-2105
+--------------------------------------------------------------------------------
+                               [Show Management]
+                             Manage Animated Movie
+
+                                     {Info}
+    Animated Movie Title: Moana (2015)
+     - : A girl who discovers what she needs to doo to help her tribe.
+     - Animation Studio: Disney
+     - Duration: 1:47
+
+        [1] Edit Title
+        [2] Edit Description
+        [3] Edit Release Year
+        [4] Edit Animation Studio
+        [5] Edit Duration
+
+        [R] Return
+        [E] Show Management
+        [M] Main Menu
+--------------------------------------------------------------------------------
+  >> Input Option:   
+```
+Manage Theater Page
+```
+================================================================================
+                       _    _               _       _
+                      / \  | |__  ___  ___ | |_   _| |_ ___
+                     / _ \ | '_ \/ __|/ _ \| | | | | __/ _ \
+                    / ___ \| |_) \__ \ (_) | | |_| | ||  __/
+                   /_/   \_\_.__/|___/\___/|_|\__,_|\__\___|
+             ▄▄▄▄▄▄▄ ▄▄▄▄▄ ▄▄▄    ▄▄▄  ▄▄▄▄▄▄▄ ▄▄▄      ▄▄▄   ▄▄▄▄
+            ███▀▀▀▀▀  ███  ████▄  ███ ███▀▀▀▀▀ ████▄  ▄████ ▄██▀▀██▄
+            ███       ███  ███▀██▄███ ███▄▄    ███▀████▀███ ███  ███
+            ███       ███  ███  ▀████ ███      ███  ▀▀  ███ ███▀▀███
+            ▀███████ ▄███▄ ███    ███ ▀███████ ███      ███ ███  ███
+
+================================================================================
+                   Project by Group 7oop for CS 211, CS-2105
+--------------------------------------------------------------------------------
+                              [Theater Management]
+                      Manage Theater: Geev's Entertainment
+
+    Dimensions: 15 rows x 10 columns
+    Total Seats: 150
+                              {Currently Screening}
+    Animated Movie Title: Moana (2015)
+     - : A girl who discovers what she needs to doo to help her tribe.
+     - Animation Studio: Disney
+     - Duration: 1:47
+    Experience Type: Standard 3D
+
+
+        [1] End Current Screening
+        [2] Show Seat Layout
+        [3] Edit Theater Dimensions
+        [4] Edit Theater Name
+
+        [R] Return
+        [M] Main Menu
+--------------------------------------------------------------------------------
+  >> Input Option:
+```
+Manage Screening Page
+```
+================================================================================
+                       _    _               _       _
+                      / \  | |__  ___  ___ | |_   _| |_ ___
+                     / _ \ | '_ \/ __|/ _ \| | | | | __/ _ \
+                    / ___ \| |_) \__ \ (_) | | |_| | ||  __/
+                   /_/   \_\_.__/|___/\___/|_|\__,_|\__\___|
+             ▄▄▄▄▄▄▄ ▄▄▄▄▄ ▄▄▄    ▄▄▄  ▄▄▄▄▄▄▄ ▄▄▄      ▄▄▄   ▄▄▄▄
+            ███▀▀▀▀▀  ███  ████▄  ███ ███▀▀▀▀▀ ████▄  ▄████ ▄██▀▀██▄
+            ███       ███  ███▀██▄███ ███▄▄    ███▀████▀███ ███  ███
+            ███       ███  ███  ▀████ ███      ███  ▀▀  ███ ███▀▀███
+            ▀███████ ▄███▄ ███    ███ ▀███████ ███      ███ ███  ███
+
+================================================================================
+                   Project by Group 7oop for CS 211, CS-2105
+--------------------------------------------------------------------------------
+                             [Screening Management]
+             Manage Screening: Moana (2015) | Geev's Entertainment
+
+                                      {Show}
+    Animated Movie Title: Moana (2015)
+     - : A girl who discovers what she needs to doo to help her tribe.
+     - Animation Studio: Disney
+     - Duration: 1:47
+
+                                    {Theater}
+    Theater: Geev's Entertainment
+    Reserved: 75/150
+    Currently Screening: Yes
+
+
+        [1] Show Seat Reservation Layout
+        [2] Add Seat Reservation
+        [3] Delete Seat Reservation
+        [4] Edit Show
+        [5] Edit Theater
+        [6] Edit Experience Type
+
+        [R] Return
+        [M] Main Menu
+--------------------------------------------------------------------------------
+  >> Input Option: 
+```
+Screening Seat Reservation Layout
+```
+================================================================================
+                       _    _               _       _
+                      / \  | |__  ___  ___ | |_   _| |_ ___
+                     / _ \ | '_ \/ __|/ _ \| | | | | __/ _ \
+                    / ___ \| |_) \__ \ (_) | | |_| | ||  __/
+                   /_/   \_\_.__/|___/\___/|_|\__,_|\__\___|
+             ▄▄▄▄▄▄▄ ▄▄▄▄▄ ▄▄▄    ▄▄▄  ▄▄▄▄▄▄▄ ▄▄▄      ▄▄▄   ▄▄▄▄
+            ███▀▀▀▀▀  ███  ████▄  ███ ███▀▀▀▀▀ ████▄  ▄████ ▄██▀▀██▄
+            ███       ███  ███▀██▄███ ███▄▄    ███▀████▀███ ███  ███
+            ███       ███  ███  ▀████ ███      ███  ▀▀  ███ ███▀▀███
+            ▀███████ ▄███▄ ███    ███ ▀███████ ███      ███ ███  ███
+
+================================================================================
+                   Project by Group 7oop for CS 211, CS-2105
+--------------------------------------------------------------------------------
+                             [Screening Management]
+                Seat Layout: Moana (2015) | Geevs's Entertainment
+
+                                A B C D E F G H I J
+                              1 o x o o x o x o o x
+                              2 o o o x x o o o x o
+                              3 x o x o o x x x o o
+                              4 x x x x o o x o o o
+                              5 x x x o x o o x o o
+                              6 x x x x x o o x x x
+                              7 x o x x x o o o x x
+                              8 x x o o o o x x x o
+                              9 x x o x o o o x x x
+                             10 x x x o x o x o o x
+                             11 o x o o x x x o o x
+                             12 x x x o x o o x o o
+                             13 x x x o o o x x o o
+                             14 x o o x o x o o o o
+                             15 x x x o o o o o x o
+
+        [R] Return
+        [E] Screening Management
+        [M] Main Menu
+--------------------------------------------------------------------------------
+  >> Input Option:
+```
 
 ## .˳˚✦ 6. Authors
 
