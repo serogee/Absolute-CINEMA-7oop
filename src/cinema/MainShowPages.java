@@ -1,6 +1,7 @@
 package cinema;
 
 import java.time.Duration;
+import java.time.Year;
 
 import cinema.utils.CustomOption;
 import cinema.utils.Option;
@@ -41,8 +42,8 @@ class MainShowPages {
         return page.nextIntResultInputLoop(
             "Input Release Year",
             1500,
-            3000,
-            "Please enter a valid yearbetween 1500 and 3000!"
+            Year.now().getValue(),
+            "Please enter a valid yearbetween 1500 and "+ Year.now().getValue() + "!"
         );
 
     }
