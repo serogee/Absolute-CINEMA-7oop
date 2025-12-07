@@ -19,6 +19,16 @@ public class AnimatedMovie extends Show {
         return "Animated Movie";
     }
     
+    /**
+     * Returns a list of strings containing detailed information about the show.
+     * The list contains the following information in the following order:
+     * - The show type and title
+     * - The description of the show
+     * - The animation studio of the show
+     * - The duration of the show in hours and minutes
+     * 
+     * @return a list of strings containing detailed information about the show
+     */
     @Override
     public ArrayList<String> getLongInfo() {
         java.util.ArrayList<String> info = new java.util.ArrayList<>();

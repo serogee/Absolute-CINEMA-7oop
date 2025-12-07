@@ -27,10 +27,21 @@ class MainScreeningPages {
         this.workingScreening = null;
     }
 
+    /**
+     * Clears the working screening.
+     * This method sets the working screening to null, effectively canceling any
+     * screening operations that were in progress.
+     */
     public void clearWorkingScreening() {
         this.workingScreening = null;
     }
 
+    /**
+     * Returns a string representation of the current screening's reservation layout.
+     * The returned string is a centered representation of the theater's seat layout, with
+     * reserved seats highlighted.
+     * @return a string representation of the current screening's reservation layout
+     */
     public String getReservationLayout() {
         List<String> bodyLines = new ArrayList<>();
         for (String line : Arrays.asList(this.workingScreening.getTheater().generateSeatLayoutDisplay(this.workingScreening.getReservedSeatIDs()).split("\n"))) {
@@ -39,6 +50,12 @@ class MainScreeningPages {
         return String.join("\n", bodyLines);
     }
 
+    /**
+     * Returns a PageResult that represents the main menu of the application.
+     * This method generates a page that displays all screenings in the cinema, and
+     * allows the user to select a screening to manage.
+     * @return a PageResult that represents the main menu of the application
+     */
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -77,6 +94,12 @@ class MainScreeningPages {
         return PageResult.createResultNextPage(PageType.MANAGE_SCREENING);
     }
 
+    /**
+     * Returns a PageResult that represents the add screening page of the application.
+     * This method generates a page that allows the user to select a theater and a show to
+     * create a new screening.
+     * @return a PageResult that represents the add screening page of the application
+     */
     public PageResult addScreeningPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -167,6 +190,12 @@ class MainScreeningPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
 
+    /**
+     * Returns a PageResult that represents the delete screening page of the application.
+     * This method generates a page that displays all screenings in the cinema, and
+     * allows the user to select a screening to delete.
+     * @return a PageResult that represents the delete screening page of the application
+     */
     public PageResult deleteScreeningPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -207,6 +236,12 @@ class MainScreeningPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
 
+    /**
+     * Returns a PageResult that represents the manage screening page of the application.
+     * This method generates a page that displays the details of the selected screening, and
+     * allows the user to select an option to manage the screening.
+     * @return a PageResult that represents the manage screening page of the application
+     */
     public PageResult manageScreeningPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -238,6 +273,15 @@ class MainScreeningPages {
         return page.nextOptionResultInputLoop("Input Option");
     }
 
+    /**
+     * Displays the seat layout of the current screening.
+     * The seat layout includes the following information:
+     *   - Each row and column of the theater
+     *   - The availability status of each seat
+     *   - The ID of each seat
+     * The user can navigate to the previous page, the main screening page, or the start page.
+     * @return the result of the page navigation loop
+     */
     public PageResult showSeatLayoutPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -255,6 +299,15 @@ class MainScreeningPages {
     }
 
     private static Pattern columnRowPattern = Pattern.compile("([a-zA-Z])(\\d+)");
+    /**
+     * Displays the seat layout of the current screening and allows the user to add a new seat reservation.
+     * The user is prompted to enter the column and row of the seat they wish to reserve, e.g. A10.
+     * The input is validated to check that the seat is not already reserved and that it is a valid seat in the theater.
+     * If the input is valid, the seat reservation is added and the user is returned to the previous page.
+     * If the input is invalid, an error message is displayed and the user is prompted to enter the input again.
+     * The user can navigate to the previous page, the main screening page, or the start page.
+     * @return the result of the page navigation loop
+     */
     public PageResult addSeatReservationPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -292,6 +345,16 @@ class MainScreeningPages {
         }
     }
 
+
+    /**
+     * Displays the seat layout of the current screening and allows the user to delete a seat reservation.
+     * The user is prompted to enter the column and row of the seat they wish to delete, e.g. A10.
+     * The input is validated to check that the seat is reserved and that it is a valid seat in the theater.
+     * If the input is valid, the seat reservation is deleted and the user is returned to the previous page.
+     * If the input is invalid, an error message is displayed and the user is prompted to enter the input again.
+     * The user can navigate to the previous page, the main screening page, or the start page.
+     * @return the result of the page navigation loop
+     */
     public PageResult deleteSeatReservationPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -329,6 +392,14 @@ class MainScreeningPages {
         }
     }
 
+    /**
+     * Allows the user to select a show to edit the current screening.
+     * The user is presented with a list of shows and is prompted to enter the number of the show they wish to edit.
+     * If the input is valid, the show of the current screening is updated and the user is returned to the previous page.
+     * If the input is invalid, an error message is displayed and the user is prompted to enter the input again.
+     * The user can navigate to the previous page, the main screening page, or the start page.
+     * @return the result of the page navigation loop
+     */
     public PageResult editScreeningShowPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -356,6 +427,14 @@ class MainScreeningPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
 
+    /**
+     * Allows the user to select a theater to edit the current screening.
+     * The user is presented with a list of theaters and is prompted to enter the number of the theater they wish to edit.
+     * If the input is valid, the theater of the current screening is updated and the user is returned to the previous page.
+     * If the input is invalid, an error message is displayed and the user is prompted to enter the input again.
+     * The user can navigate to the previous page, the main screening page, or the start page.
+     * @return the result of the page navigation loop
+     */
     public PageResult editScreeningTheaterPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -385,6 +464,14 @@ class MainScreeningPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
 
+    /**
+     * Allows the user to select a new experience type for the current screening.
+     * The user is presented with a list of experience types and is prompted to enter the number of the experience type they wish to select.
+     * If the input is valid, the experience type of the current screening is updated and the user is returned to the previous page.
+     * If the input is invalid, an error message is displayed and the user is prompted to enter the input again.
+     * The user can navigate to the previous page, the main screening page, or the start page.
+     * @return the result of the page navigation loop
+     */
     public PageResult editScreeningExperienceTypePage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);

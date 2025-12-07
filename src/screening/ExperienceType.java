@@ -11,6 +11,10 @@ public enum ExperienceType {
         this.displayName = displayName;
     }
 
+    /**
+     * Returns the display name of the experience type.
+     * @return the display name of the experience type
+     */
     @Override
     public String toString() {
         return this.displayName;

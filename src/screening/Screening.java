@@ -39,10 +39,24 @@ public class Screening {
 
     // Other Methods
 
+    /**
+     * Checks if a given seat is reserved for this screening.
+     * 
+     * @param seatID the ID of the seat to check (e.g. "A1", "B2", etc.)
+     * @return true if the seat is reserved, false otherwise
+     */
     public boolean isSeatReserved(String seatID) {
         return this.reservedSeatIDs.contains(seatID);
     }
 
+    /**
+     * Creates a new seat reservation for the given row and column.
+     * 
+     * @param row the row number of the seat to reserve (1-indexed)
+     * @param column the column letter of the seat to reserve (e.g. 'A', 'B', etc.)
+     * @throws SeatConflictException if the seat is already reserved for this screening
+     * @throws InvalidSeatException if the seat is not a valid seat in the theater
+     */
     public void createSeatReservation(int row, char column) throws SeatConflictException, InvalidSeatException {
         String seatID = String.format("%c%d", column, row);
         if (!theater.isValidSeat(row, column)) {
@@ -54,6 +68,14 @@ public class Screening {
         this.reservedSeatIDs.add(seatID);
     }
 
+    /**
+     * Deletes a seat reservation for the given row and column.
+     * 
+     * @param row the row number of the seat to delete the reservation for (1-indexed)
+     * @param column the column letter of the seat to delete the reservation for (e.g. 'A', 'B', etc.)
+     * @throws SeatConflictException if the seat is not reserved for this screening
+     * @throws InvalidSeatException if the seat is not a valid seat in the theater
+     */
     public void deleteSeatReservation(int row, char column) throws SeatConflictException, InvalidSeatException {
         String seatID = String.format("%c%d", column, row);
         if (!theater.isValidSeat(row, column)) {

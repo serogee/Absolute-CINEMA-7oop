@@ -23,10 +23,20 @@ class MainShowPages {
         this.workingShow = null;
     }
 
+    /**
+     * Resets the working show to null.
+     */
     public void clearWorkingShow() {
         this.workingShow = null;
     }
 
+    /**
+     * Asks the user for a title and returns the corresponding PageResult.
+     * If the user inputs an empty title, the method will display an error message
+     * and loop again until a non-empty title is entered.
+     * @param page the PageBuilder to use for display and input
+     * @return the PageResult corresponding with the user's non-empty title input
+     */
     public PageResult.Str inputTitle(PageBuilder page) {
         return page.nextLineResultInputLoop(
             "Input Title",
@@ -34,10 +44,24 @@ class MainShowPages {
         );
     }
 
+    /**
+     * Asks the user for a description and returns the corresponding PageResult.
+     * If the user inputs an empty description, the method will display an error message
+     * and loop again until a non-empty description is entered.
+     * @param page the PageBuilder to use for display and input
+     * @return the PageResult corresponding with the user's non-empty description input
+     */
     public PageResult.Str inputDescription(PageBuilder page) {
         return page.nextLine("Input Description");
     }
 
+    /**
+     * Asks the user for a release year and returns the corresponding PageResult.
+     * If the user inputs an invalid release year (less than 1500 or greater than the current year),
+     * the method will display an error message and loop again until a valid release year is entered.
+     * @param page the PageBuilder to use for display and input
+     * @return the PageResult corresponding with the user's valid release year input
+     */
     public PageResult.Int inputReleaseYear(PageBuilder page) {
         return page.nextIntResultInputLoop(
             "Input Release Year",
@@ -48,6 +72,13 @@ class MainShowPages {
 
     }
 
+    /**
+     * Asks the user for a duration in minutes and returns the corresponding PageResult.
+     * If the user inputs an invalid duration (less than 1 minute or greater than 10 hours),
+     * the method will display an error message and loop again until a valid duration is entered.
+     * @param page the PageBuilder to use for display and input
+     * @return the PageResult corresponding with the user's valid duration input
+     */
     public PageResult.Int inputDuration(PageBuilder page) {
         return page.nextIntResultInputLoop(
             "Input Duration (in minutes)",
@@ -57,6 +88,13 @@ class MainShowPages {
         );
     }
 
+    /**
+     * Asks the user for a lead actor and returns the corresponding PageResult.
+     * If the user inputs an empty lead actor, the method will display an error message
+     * and loop again until a non-empty lead actor is entered.
+     * @param page the PageBuilder to use for display and input
+     * @return the PageResult corresponding with the user's non-empty lead actor input
+     */
     public PageResult.Str inputLeadActor(PageBuilder page) {
         return page.nextLineResultInputLoop(
             "Input Lead Actor",
@@ -64,6 +102,13 @@ class MainShowPages {
         );
     }
 
+    /**
+     * Asks the user for an animation studio and returns the corresponding PageResult.
+     * If the user inputs an empty animation studio, the method will display an error message
+     * and loop again until a non-empty animation studio is entered.
+     * @param page the PageBuilder to use for display and input
+     * @return the PageResult corresponding with the user's non-empty animation studio input
+     */
     public PageResult.Str inputAnimationStudio(PageBuilder page) {
         return page.nextLineResultInputLoop(
             "Input Animation Studio",
@@ -71,6 +116,13 @@ class MainShowPages {
         );
     }
 
+    /**
+     * Asks the user for an artist name and returns the corresponding PageResult.
+     * If the user inputs an empty artist name, the method will display an error message
+     * and loop again until a non-empty artist name is entered.
+     * @param page the PageBuilder to use for display and input
+     * @return the PageResult corresponding with the user's non-empty artist name input
+     */
     public PageResult.Str inputArtistName(PageBuilder page) {
         return page.nextLineResultInputLoop(
             "Input Artist Name",
@@ -78,6 +130,12 @@ class MainShowPages {
         );
     }
 
+    /**
+     * The main page of show management.
+     * Displays a list of all shows in the cinema and allows the user to select one to manage.
+     * The user can also choose to add a show, delete a show, or return to the previous page.
+     * @return the PageResult corresponding with the user's selected option
+     */
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -114,6 +172,12 @@ class MainShowPages {
         }
     }
 
+    /**
+     * Displays a page that allows the user to select the type of show they wish to add.
+     * The user can choose from a standard movie, an animated movie, or a concert film.
+     * The user can also choose to navigate to the previous page or the main menu.
+     * @return the PageResult corresponding with the user's selected option
+     */
     public PageResult addShowPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -132,6 +196,15 @@ class MainShowPages {
         return result;
     }
 
+    /**
+     * Adds a standard movie to the cinema.
+     * Displays a page that asks the user for the title, description, release year, and lead actor of the movie.
+     * The user is also prompted to enter the duration of the movie in minutes.
+     * If any of the input is invalid, an error message is displayed and the user is prompted to enter the input again.
+     * The user can navigate to the previous page, the main show page, or the start page.
+     * If the user successfully enters all of the input, the movie is added to the cinema and the user is returned to the main show page.
+     * @return the PageResult corresponding with the user's selected option
+     */
     public PageResult addShowMoviePage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -186,6 +259,15 @@ class MainShowPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
 
+    /**
+     * Adds an animated movie to the cinema.
+     * Displays a page that asks the user for the title, description, release year, and animation studio of the movie.
+     * The user is also prompted to enter the duration of the movie in minutes.
+     * If any of the input is invalid, an error message is displayed and the user is prompted to enter the input again.
+     * The user can navigate to the previous page, the main show page, or the start page.
+     * If the user successfully enters all of the input, the movie is added to the cinema and the user is returned to the main show page.
+     * @return the PageResult corresponding with the user's selected option
+     */
     public PageResult addShowAnimatedMoviePage() {
         
         PageBuilder page = new PageBuilder();
@@ -241,6 +323,13 @@ class MainShowPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
 
+    /**
+     * Returns a PageResult that represents the add concert film page of the application.
+     * This method generates a page that allows the user to select a title, description, release year, artist name, and duration of a concert film to add to the application.
+     * After the user has entered the required information, the method adds the concert film to the application and returns a PageResult that jumps to the main show page.
+     * The user can navigate to the previous page, the main show page, or the start page.
+     * @return a PageResult that represents the add concert film page of the application
+     */
     public PageResult addShowConcertFilmPage() {
         
         PageBuilder page = new PageBuilder();
@@ -296,6 +385,12 @@ class MainShowPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
 
+    /**
+     * Returns a PageResult that represents the manage show movie page of the application.
+     * This method generates a page that displays the details of the selected movie, and
+     * allows the user to select an option to manage the movie.
+     * @return a PageResult that represents the manage show movie page of the application
+     */
     public PageResult manageShowMoviePage() {
         if (!(this.workingShow instanceof Movie)) {
             // Should not reach here, only for checking purposes
@@ -322,6 +417,12 @@ class MainShowPages {
         return page.nextOptionResultInputLoop("Input Option");
     }
 
+    /**
+     * Returns a PageResult that represents the manage show animated movie page of the application.
+     * This method generates a page that displays the details of the selected animated movie, and
+     * allows the user to select an option to manage the animated movie.
+     * @return a PageResult that represents the manage show animated movie page of the application
+     */
     public PageResult manageShowAnimatedMoviePage() {
         if (!(this.workingShow instanceof AnimatedMovie)) {
             // Should not reach here, only for checking purposes
@@ -348,6 +449,12 @@ class MainShowPages {
         return page.nextOptionResultInputLoop("Input Option");
     }
 
+    /**
+     * Returns a PageResult that represents the manage show concert film page of the application.
+     * This method generates a page that displays the details of the selected concert film, and
+     * allows the user to select an option to manage the concert film.
+     * @return a PageResult that represents the manage show concert film page of the application
+     */
     public PageResult manageShowConcertFilmPage() {
         if (!(this.workingShow instanceof ConcertFilm)) {
             // Should not reach here, only for checking purposes
@@ -374,6 +481,14 @@ class MainShowPages {
         return page.nextOptionResultInputLoop("Input Option");
     }
 
+    /**
+     * Returns a PageResult that represents the edit show title page of the application.
+     * This method generates a page that displays the details of the selected show, and
+     * allows the user to edit the title of the show.
+     * The user can navigate to the previous page, the main show page, or the start page.
+     * If the user successfully enters the new title, the show is updated and the user is returned to the previous page.
+     * @return a PageResult that represents the edit show title page of the application
+     */
     public PageResult editShowTitlePage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -396,6 +511,14 @@ class MainShowPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
 
+    /**
+     * Returns a PageResult that represents the edit show description page of the application.
+     * This method generates a page that displays the details of the selected show, and
+     * allows the user to edit the description of the show.
+     * The user can navigate to the previous page, the main show page, or the start page.
+     * If the user successfully enters the new description, the show is updated and the user is returned to the previous page.
+     * @return a PageResult that represents the edit show description page of the application
+     */
     public PageResult editShowDescriptionPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -418,6 +541,14 @@ class MainShowPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
 
+    /**
+     * Returns a PageResult that represents the edit show release year page of the application.
+     * This method generates a page that displays the details of the selected show, and
+     * allows the user to edit the release year of the show.
+     * The user can navigate to the previous page, the main show page, or the start page.
+     * If the user successfully enters the new release year, the show is updated and the user is returned to the previous page.
+     * @return a PageResult that represents the edit show release year page of the application
+     */
     public PageResult editShowReleaseYearPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -439,6 +570,14 @@ class MainShowPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
 
+    /**
+     * Returns a PageResult that represents the edit show duration page of the application.
+     * This method generates a page that displays the details of the selected show, and
+     * allows the user to edit the duration of the show.
+     * The user can navigate to the previous page, the main show page, or the start page.
+     * If the user successfully enters the new duration, the show is updated and the user is returned to the previous page.
+     * @return a PageResult that represents the edit show duration page of the application
+     */
     public PageResult editShowDurationPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -460,6 +599,14 @@ class MainShowPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
 
+    /**
+     * Returns a PageResult that represents the edit lead actor page of the application.
+     * This method generates a page that displays the details of the selected movie, and
+     * allows the user to edit the lead actor of the movie.
+     * The user can navigate to the previous page, the main show page, or the start page.
+     * If the user successfully enters the new lead actor, the movie is updated and the user is returned to the previous page.
+     * @return a PageResult that represents the edit lead actor page of the application
+     */
     public PageResult editLeadActorPage() {
         if (!(this.workingShow instanceof Movie)) {
             // Should not reach here, only for checking purposes
@@ -488,6 +635,14 @@ class MainShowPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
 
+    /**
+     * Returns a PageResult that represents the edit animation studio page of the application.
+     * This method generates a page that displays the details of the selected animated movie, and
+     * allows the user to edit the animation studio of the animated movie.
+     * The user can navigate to the previous page, the main show page, or the start page.
+     * If the user successfully enters the new animation studio, the animated movie is updated and the user is returned to the previous page.
+     * @return a PageResult that represents the edit animation studio page of the application
+     */
     public PageResult editAnimationStudioPage() {
         if (!(this.workingShow instanceof AnimatedMovie)) {
             // Should not reach here, only for checking purposes
@@ -516,6 +671,14 @@ class MainShowPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
 
+    /**
+     * Returns a PageResult that represents the edit artist page of the application.
+     * This method generates a page that displays the details of the selected concert film, and
+     * allows the user to edit the artist of the concert film.
+     * The user can navigate to the previous page, the main show page, or the start page.
+     * If the user successfully enters the new artist, the concert film is updated and the user is returned to the previous page.
+     * @return a PageResult that represents the edit artist page of the application
+     */
     public PageResult editArtistPage() {
         if (!(this.workingShow instanceof ConcertFilm)) {
             // Should not reach here, only for checking purposes
@@ -544,8 +707,14 @@ class MainShowPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
 
-
-
+    /**
+     * Returns a PageResult that represents the delete show page of the application.
+     * This method generates a page that displays all shows in the cinema, and
+     * allows the user to select a show to delete.
+     * The user can navigate to the previous page, the main show page, or the start page.
+     * If the user successfully enters the show number, the show is deleted from the application and the user is returned to the previous page.
+     * @return a PageResult that represents the delete show page of the application
+     */
     public PageResult deleteShowPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);

@@ -21,10 +21,19 @@ class MainTheaterPages {
         this.workingTheater = null;
     }
 
+    /**
+     * Clears the working theater to null.
+     * This method effectively cancels any theater management operations that were in progress.
+     */
     public void clearWorkingTheater() {
         this.workingTheater = null;
     }
 
+    /**
+     * Returns a PageResult that represents the main page of the theater management section.
+     * This method generates a page that displays all theaters in the cinema, and allows the user to select an option to add a theater, delete a theater, or manage an existing theater.
+     * @return a PageResult that represents the main page of the theater management section
+     */
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -53,6 +62,12 @@ class MainTheaterPages {
         return PageResult.createResultNextPage(PageType.MANAGE_THEATER);
     }
 
+    /**
+     * Returns a PageResult that represents the add theater page of the application.
+     * This method generates a page that allows the user to input the name of the theater and the dimensions of the theater.
+     * After the user inputs the required information, the user is returned to the main page and the new theater is added to the cinema.
+     * @return a PageResult that represents the add theater page of the application
+     */
     public PageResult addTheaterPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -101,6 +116,12 @@ class MainTheaterPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
 
+    /**
+     * Returns a PageResult that represents the delete theater page of the application.
+     * This method generates a page that displays all theaters in the cinema, and allows the user to select a theater to delete.
+     * After the user selects a theater, the theater is permanently deleted from the system, including all associated screenings.
+     * @return a PageResult that represents the delete theater page of the application
+     */
     public PageResult deleteTheaterPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -137,6 +158,15 @@ class MainTheaterPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_MAIN);
     }
 
+    /**
+     * Returns a PageResult that represents the manage theater page of the application.
+     * This method generates a page that displays the details of the selected theater, and
+     * allows the user to select an option to manage the theater.
+     * The user can select options to end or start a screening, show the theater seat layout,
+     * edit the theater dimensions, edit the theater name, or navigate to the previous page, the main
+     * theater page, or the start page.
+     * @return a PageResult that represents the manage theater page of the application
+     */
     public PageResult manageTheaterPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -174,6 +204,12 @@ class MainTheaterPages {
         return page.nextOptionResultInputLoop("Input Option");
     }
 
+    /**
+     * Returns a PageResult that represents the show theater seat layout page of the application.
+     * This method generates a page that displays the seat layout of the selected theater, and
+     * allows the user to navigate to the previous page, the main theater page, or the start page.
+     * @return a PageResult that represents the show theater seat layout page of the application
+     */
     public PageResult showTheaterSeatLayoutPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -194,6 +230,17 @@ class MainTheaterPages {
         return page.nextOptionResultInputLoop("Input Option");
     }
 
+    /**
+     * Returns a PageResult that represents the set current screening page of the application.
+     * This method generates a page that allows the user to select a screening to set as the current
+     * screening for the selected theater, and allows the user to navigate to the previous page, the main
+     * theater page, or the start page.
+     * If the selected theater is already currently screening a show, this method will end the current
+     * screening and return the user to the previous page.
+     * If there are no screenings available to select from, this method will display an error message to
+     * the user.
+     * @return a PageResult that represents the set current screening page of the application
+     */
     public PageResult setCurrentScreeningPage() {
 
         if (this.workingTheater.getCurrentScreening() != null) {
@@ -242,6 +289,14 @@ class MainTheaterPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
 
+    /**
+     * Allows the user to edit the name of the selected theater.
+     * The user is prompted to enter the new theater name.
+     * If the input is valid, the theater name is updated and the user is returned to the previous page.
+     * If the input is invalid, an error message is displayed and the user is prompted to enter the input again.
+     * The user can navigate to the previous page, the main theater page, or the start page.
+     * @return the result of the page navigation loop
+     */
     public PageResult editTheaterNamePage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);
@@ -264,6 +319,14 @@ class MainTheaterPages {
         return PageResult.createResultJump(PageResult.Navigation.BACK_TO_PREVIOUS);
     }
 
+    /**
+     * Allows the user to edit the dimensions of the selected theater.
+     * The user is prompted to enter the new row length and column length.
+     * If the input is valid, the theater dimensions are updated and all associated screenings are cleared.
+     * If the input is invalid, an error message is displayed and the user is prompted to enter the input again.
+     * The user can navigate to the previous page, the main theater page, or the start page.
+     * @return the result of the page navigation loop
+     */
     public PageResult editTheaterDimensionsPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);

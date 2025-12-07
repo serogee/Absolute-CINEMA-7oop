@@ -16,6 +16,12 @@ import theater.Theater;
 
 public class DemoPages {
 
+    /**
+     * Loads demo data into the provided Cinema object.
+     *
+     * @param cinema the Cinema object to load the demo data into
+     * @return a PageResult object indicating the navigation result after loading the demo data
+     */
     public static PageResult mainPage(Cinema cinema) {
 
         List<Show> shows = cinema.getShows();

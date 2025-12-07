@@ -14,11 +14,26 @@ public class ConcertFilm extends Show {
     public String getArtist() { return this.artist; }
     public void setArtist(String artistName) { this.artist = artistName; }
 
+    /**
+     * Returns a string representing the type of show.
+     * 
+     * @return a string representing the type of show
+     */
     @Override
     public String getShowTypeAsString() {
         return "Concert Film";
     }
     
+    /**
+     * Returns a list of strings containing detailed information about the show.
+     * The list contains the following information in the following order:
+     * - The show type and title
+     * - The description of the show
+     * - The artist of the show
+     * - The duration of the show in hours and minutes
+     * 
+     * @return a list of strings containing detailed information about the show
+     */
     @Override
     public ArrayList<String> getLongInfo() {
         java.util.ArrayList<String> info = new java.util.ArrayList<>();

@@ -11,6 +11,15 @@ import cinema.utils.Option;
 
 class MainMenuPages {
 
+    /**
+     * Displays the main menu page to the user, allowing them to choose from several options:
+     *   - Manage Shows: Manage all shows in the cinema.
+     *   - Manage Screenings: Manage all screenings in the cinema.
+     *   - Manage Theaters: Manage all theaters in the cinema.
+     *   - Load Demo Data: Load demo data into the program.
+     *   - Quit: Quit the program.
+     * @return The result of the user's input, which can be used to navigate to the next page.
+     */
     public PageResult mainPage() {
         PageBuilder page = new PageBuilder();
         page.setHud(Config.HUD_DISPLAY);

@@ -103,10 +103,23 @@ public class PageResult {
 
     public PageType getNextPage() { return this.nextPage; }
 
+    /**
+     * Create a PageResult to navigate to the next page.
+     * 
+     * @param nextPage the page to navigate to
+     * @return a PageResult with the NEXT navigation direction and the specified page
+     */
     public static PageResult createResultNextPage(PageType nextPage) {
         return new PageResult(Navigation.NEXT, nextPage);
     }
 
+    /**
+     * Create a PageResult to navigate to a previous or start page.
+     * 
+     * @param direction the navigation direction to use (BACK or START)
+     * @return a PageResult with the specified navigation direction and no target page
+     * @throws IllegalArgumentException if the navigation direction is NEXT
+     */
     public static PageResult createResultJump(Navigation direction) {
         if (direction == Navigation.NEXT) {
             throw new IllegalArgumentException("BACK directions cannot be NEXT");

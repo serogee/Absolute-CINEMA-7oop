@@ -47,6 +47,12 @@ public class Cinema {
     public List<Screening> getScreenings() { return screenings; }
     public List<Theater> getTheaters() { return theaters; }
 
+    /**
+     * Starts the Cinema application, which is an infinite loop that
+     * determines which page to display based on the history of pages
+     * navigated to. It also handles the result of each page (navigation)
+     * and updates the history accordingly.
+     */
     public void start() {
         PageResult result;
         
